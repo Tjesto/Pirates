@@ -16,9 +16,14 @@ namespace Pirates
 
         private PictureBox SurfaceRenderer = new PictureBox();
 
+        private GameEngineRenderer renderer;
+        private Graphics graphics;
+
         public MainWindow()
         {
             InitializeComponent();
+            renderer = new GameEngineRenderer(this);
+
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
@@ -31,6 +36,7 @@ namespace Pirates
             SurfaceRenderer.Paint += new System.Windows.Forms.PaintEventHandler(this.surfaceRenderer_Paint);
             // Add the PictureBox control to the Form. 
             this.Controls.Add(SurfaceRenderer);
+            renderer.StartMainGameLoop();
         }
                        
         private void surfaceRenderer_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
@@ -39,10 +45,19 @@ namespace Pirates
             Graphics g = e.Graphics;
 
             // Draw a string on the PictureBox.            
-           
-
+            renderer.invalidateElements(g);
+            
         }
-        
+
+        public void invalidate()
+        {
+            SurfaceRenderer.Refresh();
+        }
+
+        private void frameRenderTimer_Tick(object sender, EventArgs e)
+        {
+            invalidate();
+        }
 
     }
 }

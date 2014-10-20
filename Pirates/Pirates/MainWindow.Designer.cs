@@ -28,7 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.frameRenderTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
+            // 
+            // frameRenderTimer
+            // 
+            this.frameRenderTimer.Enabled = true;
+            this.frameRenderTimer.Interval = 40;
+            this.frameRenderTimer.Tick += new System.EventHandler(this.frameRenderTimer_Tick);
             // 
             // MainWindow
             // 
@@ -43,6 +51,8 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer frameRenderTimer;
     }
 }
 
