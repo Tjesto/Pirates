@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Pirates.Rendering;
+using Pirates.UnitTests;
 
 namespace Pirates
 {
@@ -17,10 +18,13 @@ namespace Pirates
         private PictureBox SurfaceRenderer = new PictureBox();
 
         private GameEngineRenderer renderer;
-        private Graphics graphics;
 
         public MainWindow()
         {
+            if (Utils.TESTS)
+            {
+                TestRunner.getInstance().runTests();
+            }
             InitializeComponent();
             renderer = new GameEngineRenderer(this);
 
@@ -36,7 +40,7 @@ namespace Pirates
             SurfaceRenderer.Paint += new System.Windows.Forms.PaintEventHandler(this.surfaceRenderer_Paint);
             // Add the PictureBox control to the Form. 
             this.Controls.Add(SurfaceRenderer);
-            renderer.StartMainGameLoop();
+            renderer.startMainGameLoop();
         }
                        
         private void surfaceRenderer_Paint(object sender, System.Windows.Forms.PaintEventArgs e)
@@ -57,6 +61,11 @@ namespace Pirates
         private void frameRenderTimer_Tick(object sender, EventArgs e)
         {
             invalidate();
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            renderer.stopMainGameLoop();
         }
 
     }

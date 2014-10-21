@@ -44,10 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\AbstractMapObject.cs" />
     <Compile Include="GameObjects\NatureElement.cs" />
     <Compile Include="GameObjects\MapElement.cs" />
     <Compile Include="GameObjects\Players\PlayersInfo.cs" />
     <Compile Include="GameObjects\Ship.cs" />
+    <Compile Include="GameObjects\TerrainObject.cs" />
     <Compile Include="Rendering\GameEngineRenderer.cs" />
     <Compile Include="Rendering\MapUtils.cs" />
     <Compile Include="MainWindow.cs">
@@ -58,6 +60,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTests\Rendering\GameEngineRendererTest.cs" />
+    <Compile Include="UnitTests\TestCase.cs" />
+    <Compile Include="UnitTests\TestResult.cs" />
+    <Compile Include="UnitTests\TestRunner.cs" />
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -83,7 +90,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

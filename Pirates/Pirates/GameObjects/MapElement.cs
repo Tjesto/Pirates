@@ -11,5 +11,6 @@ namespace Pirates.GameObjects
     {
         void draw(Graphics g);
         void refreshVisibilityTowards(Ship ship);
+        int getLevel();
     }
 }

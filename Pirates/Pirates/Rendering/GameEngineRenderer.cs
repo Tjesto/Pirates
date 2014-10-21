@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Pirates.GameObjects;
+using Pirates.GameObjects.Players;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
-using Pirates.GameObjects;
-using Pirates.GameObjects.Players;
 
 namespace Pirates.Rendering
 {
@@ -16,44 +16,68 @@ namespace Pirates.Rendering
         private Thread mainGameThread;
         private bool rendering;
 
-        private volatile List<MapElement> sceneryElements;
-        private volatile List<Ship> moveableElements;
-        private volatile List<NatureElement> enviromentElements;
+        private volatile Dictionary<int, List<MapElement>> objectsToRender;
+        private volatile List<TerrainObject> terrainObjects;
+        private volatile List<Ship> ships;
+        private volatile List<NatureElement> enviromentObjects;
         private volatile float testX, testY;
         private PlayersInfo playerInfo {get;set;}
 
         public GameEngineRenderer(MainWindow window)
         {
             this.window = window;
-            mainGameThread = new Thread(StartGameLoop);
+            mainGameThread = new Thread(startGameLoop);
             rendering = false;
-            sceneryElements = new List<MapElement>();
-            moveableElements = new List<Ship>();
-            enviromentElements = new List<NatureElement>();
+            terrainObjects = new List<TerrainObject>();
+            ships = new List<Ship>();
+            enviromentObjects = new List<NatureElement>();
+            objectsToRender = new Dictionary<int,List<MapElement>>();
             playerInfo = new PlayersInfo();
             testX = 0;
-            testY = 0;
+            testY = 0;            
         }
 
-        public void StartMainGameLoop()
+        public void addTerrain(TerrainObject terrainObject)
+        {
+            terrainObjects.Add(terrainObject);
+            onMapElementAdded(terrainObject);
+        }
+
+        private void onMapElementAdded(MapElement mapElement)
+        {
+            if (objectsToRender != null)
+            {
+                if (!objectsToRender.ContainsKey(mapElement.getLevel()))
+                {
+                    objectsToRender.Add(mapElement.getLevel(), new List<MapElement>());
+                }
+                List<MapElement> elements = new List<MapElement>();
+                if (objectsToRender.TryGetValue(mapElement.getLevel(), out elements))
+                {
+                    elements.Add(mapElement);
+                }
+            }
+        }
+
+        public void startMainGameLoop()
         {
             rendering = true;
             mainGameThread.Start();
         }
 
-        void StartGameLoop()
+        void startGameLoop()
         {
             while (rendering)
             {
                 //Players input refresh state
                    
                 //Refreshing elements visibility and position
-                foreach (MapElement e in sceneryElements)
+                foreach (MapElement e in terrainObjects)
                 {
                     e.refreshVisibilityTowards(playerInfo.playersShip);
                 }
 
-                foreach (Ship sh in moveableElements)
+                foreach (Ship sh in ships)
                 {
                     sh.refresh();
                     if (!(sh.Equals(playerInfo.playersShip))) 
@@ -62,18 +86,26 @@ namespace Pirates.Rendering
                     }                    
                 }
                 
-                foreach (NatureElement n in enviromentElements)
+                foreach (NatureElement n in enviromentObjects)
                 {
                     n.refreshVisibilityTowards(playerInfo.playersShip);
                 }
-                testX += 0.01f;
-                testY += 0.01f;
+                testX += 0.001f;
+                testY += 0.001f;
                 if (testX > 500) testX = 0;
                 if (testY > 500) testY = 0;
             }
         }
+        /**
+         * 
+         * 
+         */
+        public Dictionary<int, List<MapElement>> getObjectsToRender()
+        {
+            return objectsToRender;
+        }
 
-        public void StopMainGameLoop()
+        public void stopMainGameLoop()
         {
             rendering = false;
             mainGameThread.Abort();
@@ -81,17 +113,17 @@ namespace Pirates.Rendering
 
         public void invalidateElements(Graphics g)
         {
-            foreach (MapElement e in sceneryElements)
+            foreach (MapElement e in terrainObjects)
             {
                 e.draw(g);
             }
 
-            foreach (Ship sh in moveableElements)
+            foreach (Ship sh in ships)
             {
                 sh.draw(g);
             }
 
-            foreach (NatureElement n in enviromentElements)
+            foreach (NatureElement n in enviromentObjects)
             {
                 n.draw(g);
             }

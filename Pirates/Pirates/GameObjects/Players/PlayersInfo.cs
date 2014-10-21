@@ -13,5 +13,10 @@ namespace Pirates.GameObjects.Players
             set;
             get;
         }
+
+        public PlayersInfo()
+        {
+
+        }
     }
 }
