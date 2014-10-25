@@ -49,7 +49,7 @@ namespace Pirates
             Graphics g = e.Graphics;
 
             // Draw a string on the PictureBox.            
-            renderer.invalidateElements(g);
+            renderer.invalidateMap(g);
             
         }
 

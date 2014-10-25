@@ -31,7 +31,7 @@ namespace Pirates.Rendering
             terrainObjects = new List<TerrainObject>();
             ships = new List<Ship>();
             enviromentObjects = new List<NatureElement>();
-            objectsToRender = new Dictionary<int,List<MapElement>>();
+            
             playerInfo = new PlayersInfo();
             testX = 0;
             testY = 0;            
@@ -40,24 +40,20 @@ namespace Pirates.Rendering
         public void addTerrain(TerrainObject terrainObject)
         {
             terrainObjects.Add(terrainObject);
-            onMapElementAdded(terrainObject);
+            Map.getInstance().onMapElementAdded(terrainObject);
         }
 
-        private void onMapElementAdded(MapElement mapElement)
+        public void addShip(Ship ship)
         {
-            if (objectsToRender != null)
-            {
-                if (!objectsToRender.ContainsKey(mapElement.getLevel()))
-                {
-                    objectsToRender.Add(mapElement.getLevel(), new List<MapElement>());
-                }
-                List<MapElement> elements = new List<MapElement>();
-                if (objectsToRender.TryGetValue(mapElement.getLevel(), out elements))
-                {
-                    elements.Add(mapElement);
-                }
-            }
+            ships.Add(ship);
+            Map.getInstance().onMapElementAdded(ship);
         }
+
+        public void addNature(NatureElement natureElement)
+        {
+            enviromentObjects.Add(natureElement);
+            Map.getInstance().onMapElementAdded(natureElement);
+        }        
 
         public void startMainGameLoop()
         {
@@ -96,37 +92,74 @@ namespace Pirates.Rendering
                 if (testY > 500) testY = 0;
             }
         }
+
         /**
-         * 
-         * 
+         * Method for testing purposes
+         * returns objects to render if it's for test or for debug. Otherwise returns null
          */
         public Dictionary<int, List<MapElement>> getObjectsToRender()
         {
-            return objectsToRender;
+            if (Utils.TESTS || Utils.DEBUG)
+            {
+                return objectsToRender;
+            }
+            return null;
+        }
+
+        /**
+         * Method for testing purposes
+         * returns terrain objects if it's for test or for debug. Otherwise returns null
+         */
+        public List<TerrainObject> getTerrain()
+        {
+            if (Utils.TESTS || Utils.DEBUG)
+            {
+                return terrainObjects;
+            }
+            return null;
+        }
+
+        /**
+         * Method for testing purposes
+         * returns shils if it's for test or for debug. Otherwise returns null
+         */
+        public List<Ship> getShips()
+        {
+            if (Utils.TESTS || Utils.DEBUG)
+            {
+                return ships;
+            }
+            return null;
+        }
+
+        /**
+         * Method for testing purposes
+         * returns enviroment objects if it's for test or for debug. Otherwise returns null
+         */
+        public List<NatureElement> getEnviroment()
+        {
+            if (Utils.TESTS || Utils.DEBUG)
+            {
+                return enviromentObjects;
+            }
+            return null;
         }
 
         public void stopMainGameLoop()
         {
             rendering = false;
             mainGameThread.Abort();
-        }
+        }        
 
-        public void invalidateElements(Graphics g)
+        public void invalidateMap(Graphics g)
         {
-            foreach (MapElement e in terrainObjects)
+            //
+            SortedList<int, MapElement> elementsInViewport = Map.getInstance().getMapElementsInCamera();
+            foreach (MapElement e in elementsInViewport.Values)
             {
                 e.draw(g);
             }
 
-            foreach (Ship sh in ships)
-            {
-                sh.draw(g);
-            }
-
-            foreach (NatureElement n in enviromentObjects)
-            {
-                n.draw(g);
-            }
             g.DrawEllipse(new Pen(Color.CadetBlue), testX, testY, 10, 10);
         }
     }
