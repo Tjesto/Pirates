@@ -153,7 +153,7 @@ namespace Pirates.Rendering
 
         public void invalidateMap(Graphics g)
         {
-            //
+            
             SortedList<int, MapElement> elementsInViewport = Map.getInstance().getMapElementsInCamera();
             foreach (MapElement e in elementsInViewport.Values)
             {

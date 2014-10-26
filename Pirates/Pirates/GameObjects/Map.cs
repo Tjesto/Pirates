@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Pirates.Rendering;
 
 namespace Pirates.GameObjects
 {
@@ -31,7 +32,32 @@ namespace Pirates.GameObjects
         {
             SortedList<int, MapElement> elementsInCamera = new SortedList<int, MapElement>();
 
+            int i = 0;
+            foreach (int level in objectsToRender.Keys)//; level < Utils.MAX_LEVEL; level++)
+            {
+                List<MapElement> elements = new List<MapElement>();
+                if (objectsToRender.TryGetValue(level, out elements))
+                {                    
+                    foreach (MapElement e in elements)
+                    {
+                        if (checkLocation(e))
+                        {
+                            elementsInCamera.Add(i++, e);
+                        }
+                    }
+                }
+            }
             return elementsInCamera;
+        }
+
+        private bool checkLocation(MapElement mapElement)
+        {
+            bool result = false;
+            result |= mapElement.getLocation(MapElementCorner.LEFT_TOP).isInRect(ViewPortHelper.getInstance().left, ViewPortHelper.getInstance().top, ViewPortHelper.getInstance().right, ViewPortHelper.getInstance().bottom);
+            result |= mapElement.getLocation(MapElementCorner.LEFT_BOTTOM).isInRect(ViewPortHelper.getInstance().left, ViewPortHelper.getInstance().top, ViewPortHelper.getInstance().right, ViewPortHelper.getInstance().bottom);
+            result |= mapElement.getLocation(MapElementCorner.RIGHT_TOP).isInRect(ViewPortHelper.getInstance().left, ViewPortHelper.getInstance().top, ViewPortHelper.getInstance().right, ViewPortHelper.getInstance().bottom); ;
+            result |= mapElement.getLocation(MapElementCorner.RIGHT_BOTTOM).isInRect(ViewPortHelper.getInstance().left, ViewPortHelper.getInstance().top, ViewPortHelper.getInstance().right, ViewPortHelper.getInstance().bottom); ;
+            return result;
         }
 
         public void onMapElementAdded(MapElement mapElement)

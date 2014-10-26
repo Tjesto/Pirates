@@ -47,6 +47,7 @@
     <Compile Include="GameObjects\AbstractMapFactory.cs" />
     <Compile Include="GameObjects\AbstractMapObject.cs" />
     <Compile Include="GameObjects\CarribeanMapFactory.cs" />
+    <Compile Include="GameObjects\Location.cs" />
     <Compile Include="GameObjects\Map.cs" />
     <Compile Include="GameObjects\NatureElement.cs" />
     <Compile Include="GameObjects\MapElement.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="GameObjects\Ship.cs" />
     <Compile Include="GameObjects\TerrainObject.cs" />
     <Compile Include="GameObjects\TestMapFactory.cs" />
+    <Compile Include="Rendering\ViewPortHelper.cs" />
     <Compile Include="Rendering\GameEngineRenderer.cs" />
     <Compile Include="Rendering\MapUtils.cs" />
     <Compile Include="MainWindow.cs">

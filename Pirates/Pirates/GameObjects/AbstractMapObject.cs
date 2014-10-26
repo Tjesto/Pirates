@@ -9,6 +9,10 @@ namespace Pirates.GameObjects
     abstract class AbstractMapObject
     {
         protected int level { set; get; }
+        protected Location leftTop;
+        protected Location rightTop;
+        protected Location rightBottom;
+        protected Location leftBottom;
 
         public AbstractMapObject(int level)
         {

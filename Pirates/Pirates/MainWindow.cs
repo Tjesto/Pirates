@@ -34,6 +34,7 @@ namespace Pirates
         {
             // Dock the PictureBox to the form and set its background to white.
             SurfaceRenderer.Dock = DockStyle.Fill;
+            ViewPortHelper.getInstance(0, 0, SurfaceRenderer.Size.Width, SurfaceRenderer.Size.Height);
             MapUtils.ARGBColor background = MapUtils.BackgroundARGBColor;
             SurfaceRenderer.BackColor = Color.FromArgb(background.Alpha, background.Red, background.Green, background.Blue);
             // Connect the Paint event of the PictureBox to the event handler method.
