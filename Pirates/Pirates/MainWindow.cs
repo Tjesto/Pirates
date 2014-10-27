@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Controls;
 using Pirates.Rendering;
 using Pirates.UnitTests;
+using Pirates.GameObjects.Players;
 
 namespace Pirates
 {
@@ -68,6 +70,18 @@ namespace Pirates
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             renderer.stopMainGameLoop();
+        }
+
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Right)
+            {
+                renderer.playerInfo.updateAngle(PlayerInfoAngle.RIGHT);
+            }
+            if (e.KeyCode == Keys.Left)
+            {
+                renderer.playerInfo.updateAngle(PlayerInfoAngle.LEFT);
+            }
         }
 
     }

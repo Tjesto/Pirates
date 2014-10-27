@@ -8,19 +8,28 @@ using Pirates.GameObjects.Ships;
 
 namespace Pirates.GameObjects.Players
 {
+    enum PlayerInfoAngle { RIGHT, LEFT }
+
     class PlayersInfo
     {
-        public Ship playersShip
+        public AbstractShip playersShip
         {
             set;
             get;
         }
+        
+        public float playersAngle {set;get;}
 
         public PlayersInfo()
         {
             //restore state
             playersShip = new Slup();
             ((AbstractShip) playersShip).changeLocationToCenter();
+        }
+
+        public void updateAngle(PlayerInfoAngle angle)
+        {
+            playersAngle += (angle == PlayerInfoAngle.RIGHT ? 1 : -1)*playersShip.TURN_VALUE;
         }
     }
 }

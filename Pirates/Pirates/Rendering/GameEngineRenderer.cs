@@ -23,7 +23,7 @@ namespace Pirates.Rendering
         private volatile List<NatureElement> enviromentObjects;
         private volatile float testX, testY;
         private volatile MapModel model;
-        private PlayersInfo playerInfo {get;set;}
+        public PlayersInfo playerInfo {get;set;}
 
         public GameEngineRenderer(MainWindow window)
         {
@@ -67,6 +67,7 @@ namespace Pirates.Rendering
             while (rendering)
             {
                 //Players input refresh state
+                playerInfo.playersShip.azimuth = playerInfo.playersAngle;
                    
                 //Refreshing elements visibility and position
                 foreach (MapElement e in terrainObjects)
@@ -86,11 +87,7 @@ namespace Pirates.Rendering
                 foreach (NatureElement n in enviromentObjects)
                 {
                     n.refreshVisibilityTowards(playerInfo.playersShip);
-                }
-                testX += 0.001f;
-                testY += 0.001f;
-                if (testX > 500) testX = 0;
-                if (testY > 500) testY = 0;
+                }               
             }
         }
 

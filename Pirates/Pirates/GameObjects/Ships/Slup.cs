@@ -8,22 +8,19 @@ namespace Pirates.GameObjects.Ships
 {
     class Slup : AbstractShip
     {
-        public Slup() : base("slup.png")
+        public Slup()
         {
+            texture = Properties.Resources.slup;
             cannonsCount = 1;
             type = "Slup";
             crewCount = 2;
             MAX_CREW = 15;
+            TURN_VALUE = 2;
             location = new Location(0, 0, 0, 0);
         }
 
-        public Slup(Location location)
-            : base("slup.png")
-        {
-            cannonsCount = 1;
-            type = "Slup";
-            crewCount = 2;
-            MAX_CREW = 15;
+        public Slup(Location location) : this()
+        {            
             this.location = location;
         }
 

@@ -10,6 +10,6 @@ namespace Pirates.GameObjects.Map
     {
         void refresh();
         void move(int x, int y);
-        bool isCollisionWith(Ship ship);
+        bool isCollisionWith(Ship ship);        
     }
 }
