@@ -15,7 +15,7 @@ namespace Pirates.Rendering
 
         protected static ViewPortHelper instance;
 
-        protected ViewPortHelper(float left, float top, float rigth, float bottom)
+        protected ViewPortHelper(float left, float top, float right, float bottom)
         {
             this.left = left;
             this.top = top;

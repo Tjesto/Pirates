@@ -26,15 +26,16 @@ namespace Pirates
                 TestRunner.getInstance().runTests();
             }
             InitializeComponent();
+            SurfaceRenderer.Dock = DockStyle.Fill;
+            ViewPortHelper.getInstance(0, 0, 1024, 768);
             renderer = new GameEngineRenderer(this);
 
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            // Dock the PictureBox to the form and set its background to white.
-            SurfaceRenderer.Dock = DockStyle.Fill;
-            ViewPortHelper.getInstance(0, 0, SurfaceRenderer.Size.Width, SurfaceRenderer.Size.Height);
+            // Dock the PictureBox to the form and set its background to white.            
+            
             MapUtils.ARGBColor background = MapUtils.BackgroundARGBColor;
             SurfaceRenderer.BackColor = Color.FromArgb(background.Alpha, background.Red, background.Green, background.Blue);
             // Connect the Paint event of the PictureBox to the event handler method.

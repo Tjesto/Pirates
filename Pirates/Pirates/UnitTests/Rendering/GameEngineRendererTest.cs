@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using Pirates.Rendering;
 using Pirates.GameObjects;
+using Pirates.GameObjects.Map;
 
 namespace Pirates.UnitTests.Rendering
 {

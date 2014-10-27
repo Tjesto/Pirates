@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pirates.GameObjects
+namespace Pirates.GameObjects.Map
 {
     class TerrainObject : AbstractMapObject, MapElement
     {
@@ -29,22 +29,9 @@ namespace Pirates.GameObjects
             return level;
         }
 
-        public Location getLocation(MapElementCorner corner)
+        public Location getLocation()
         {
-            Location l = null;
-            switch (corner)
-            {
-                case MapElementCorner.LEFT_BOTTOM: l = leftBottom;
-                    break;
-                case MapElementCorner.LEFT_TOP: l = leftTop;
-                    break;
-                case MapElementCorner.RIGHT_BOTTOM: l = rightBottom;
-                    break;
-                case MapElementCorner.RIGHT_TOP: l = rightTop;
-                    break;
-            }
-
-            return l;
+            return location;            
         }
 
     }

@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Pirates.GameObjects.Map;
 
 namespace Pirates.Rendering
 {
-    class GameEngineRenderer
+    class GameEngineRenderer : OnMapElementAddedListener
     {
         private MainWindow window;
         private Thread mainGameThread;
@@ -21,6 +22,7 @@ namespace Pirates.Rendering
         private volatile List<Ship> ships;
         private volatile List<NatureElement> enviromentObjects;
         private volatile float testX, testY;
+        private volatile MapModel model;
         private PlayersInfo playerInfo {get;set;}
 
         public GameEngineRenderer(MainWindow window)
@@ -31,28 +33,27 @@ namespace Pirates.Rendering
             terrainObjects = new List<TerrainObject>();
             ships = new List<Ship>();
             enviromentObjects = new List<NatureElement>();
+            model = new MapModel(this);            
             
             playerInfo = new PlayersInfo();
+            model.notifyElementAdded(playerInfo.playersShip);
             testX = 0;
             testY = 0;            
         }
 
         public void addTerrain(TerrainObject terrainObject)
         {
-            terrainObjects.Add(terrainObject);
-            Map.getInstance().onMapElementAdded(terrainObject);
+            terrainObjects.Add(terrainObject);      
         }
 
         public void addShip(Ship ship)
         {
             ships.Add(ship);
-            Map.getInstance().onMapElementAdded(ship);
         }
 
         public void addNature(NatureElement natureElement)
         {
             enviromentObjects.Add(natureElement);
-            Map.getInstance().onMapElementAdded(natureElement);
         }        
 
         public void startMainGameLoop()
@@ -149,18 +150,31 @@ namespace Pirates.Rendering
         {
             rendering = false;
             mainGameThread.Abort();
-        }        
+        }
+
+        public void onElementAdded(MapElement e)
+        {
+            if (e is TerrainObject)
+            {
+                addTerrain((TerrainObject) e);
+            }
+            else if (e is Ship)
+            {
+                addShip((Ship) e);
+            }
+            else if (e is NatureElement)
+            {
+                addNature((NatureElement) e);
+            }
+        }
 
         public void invalidateMap(Graphics g)
-        {
-            
+        {            
             SortedList<int, MapElement> elementsInViewport = Map.getInstance().getMapElementsInCamera();
             foreach (MapElement e in elementsInViewport.Values)
             {
                 e.draw(g);
-            }
-
-            g.DrawEllipse(new Pen(Color.CadetBlue), testX, testY, 10, 10);
+            }            
         }
     }
 }

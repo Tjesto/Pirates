@@ -8,23 +8,26 @@ namespace Pirates.GameObjects
 {
     class Location
     {
-        public float latitude { set; get; }
+        public float left { set; get; }
 
-        public float longitude { set; get; }        
+        public float top { set; get; }
 
-        public Location(float latitude, float longitude)
+        public float right { set; get; }
+
+        public float bottom { set; get; }   
+
+        public Location(float left, float top, float right, float bottom)
         {
-            this.latitude = latitude;
-            this.longitude = longitude;
+            this.left = left;
+            this.top = top;
+            this.right = right;
+            this.bottom = bottom;
         }
 
         public bool isInRect(float left, float top, float right, float bottom)
         {
-            if ((longitude > left && longitude < right) && (latitude > top && latitude < bottom)) 
-            {
-                return true;
-            }
-            return false;
+            return (((this.left > left && this.left < right) || (this.right > left && this.right < right)) &&
+                ((this.top > top && this.top < bottom) || (this.bottom > top && this.bottom < bottom)));
         }
 
     }

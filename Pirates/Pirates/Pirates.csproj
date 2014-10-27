@@ -44,17 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameObjects\AbstractMapFactory.cs" />
-    <Compile Include="GameObjects\AbstractMapObject.cs" />
-    <Compile Include="GameObjects\CarribeanMapFactory.cs" />
+    <Compile Include="GameObjects\Map\AbstractMapFactory.cs" />
+    <Compile Include="GameObjects\Map\AbstractMapObject.cs" />
+    <Compile Include="GameObjects\Map\CarribeanMapFactory.cs" />
     <Compile Include="GameObjects\Location.cs" />
-    <Compile Include="GameObjects\Map.cs" />
-    <Compile Include="GameObjects\NatureElement.cs" />
-    <Compile Include="GameObjects\MapElement.cs" />
+    <Compile Include="GameObjects\Map\Map.cs" />
+    <Compile Include="GameObjects\Map\MapModel.cs" />
+    <Compile Include="GameObjects\Map\NatureElement.cs" />
+    <Compile Include="GameObjects\Map\MapElement.cs" />
     <Compile Include="GameObjects\Players\PlayersInfo.cs" />
-    <Compile Include="GameObjects\Ship.cs" />
-    <Compile Include="GameObjects\TerrainObject.cs" />
-    <Compile Include="GameObjects\TestMapFactory.cs" />
+    <Compile Include="GameObjects\Map\Ship.cs" />
+    <Compile Include="GameObjects\Map\TerrainObject.cs" />
+    <Compile Include="GameObjects\Map\TestMapFactory.cs" />
+    <Compile Include="GameObjects\Ships\AbstractShip.cs" />
+    <Compile Include="GameObjects\Ships\Slup.cs" />
     <Compile Include="Rendering\ViewPortHelper.cs" />
     <Compile Include="Rendering\GameEngineRenderer.cs" />
     <Compile Include="Rendering\MapUtils.cs" />
@@ -96,6 +99,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

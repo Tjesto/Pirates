@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pirates.GameObjects
+namespace Pirates.GameObjects.Map
 {
     abstract class AbstractMapObject
     {
         protected int level { set; get; }
-        protected Location leftTop;
-        protected Location rightTop;
-        protected Location rightBottom;
-        protected Location leftBottom;
+        protected Location location;
 
         public AbstractMapObject(int level)
         {

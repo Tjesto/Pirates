@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pirates.GameObjects
+namespace Pirates.GameObjects.Map
 {
     enum MapFactoryType { CARRIBEAN, TEST }
 
@@ -21,8 +21,8 @@ namespace Pirates.GameObjects
             }
         }
 
-        protected abstract List<MapElement> generateMap();
-        protected abstract List<NatureElement> generateEnvironment();
-        protected abstract List<Ship> generateShips();
+        public abstract List<MapElement> generateMap();
+        public abstract List<NatureElement> generateEnvironment();
+        public abstract List<Ship> generateShips();        
     }
 }

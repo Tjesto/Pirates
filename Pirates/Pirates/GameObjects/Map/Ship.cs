@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pirates.GameObjects
+namespace Pirates.GameObjects.Map
 {
     interface Ship : MapElement
     {

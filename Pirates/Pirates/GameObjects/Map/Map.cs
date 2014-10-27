@@ -5,24 +5,55 @@ using System.Text;
 using System.Threading.Tasks;
 using Pirates.Rendering;
 
-namespace Pirates.GameObjects
+namespace Pirates.GameObjects.Map
 {
-    class Map
+
+    interface OnMapElementAddedListener
     {
+        void onElementAdded(MapElement e);
+    }
+
+    class Map : OnMapElementAddedListener
+    {        
         protected static Map instance;
 
         protected Dictionary<int, List<MapElement>> objectsToRender = new Dictionary<int,List<MapElement>>();
 
-        protected Map()
+        protected Map(MapModel model)
         {
             AbstractMapFactory factory = AbstractMapFactory.createMapFactory(Utils.GAME_MAP);
+            model.addListener(this);
+            foreach(MapElement element in factory.generateMap())
+            {
+                model.notifyElementAdded(element);
+            }
+
+            foreach (MapElement element in factory.generateShips())
+            {
+                model.notifyElementAdded(element);
+            }
+
+            foreach (MapElement element in factory.generateEnvironment())
+            {
+                model.notifyElementAdded(element);
+            }
         }
 
         public static Map getInstance()
         {
             if (instance == null)
             {
-                instance = new Map();
+                throw new NullReferenceException("No instance created yet");
+            }
+
+            return instance;
+        }
+
+        public static Map getInstance(MapModel model)
+        {
+            if (instance == null)
+            {
+                instance = new Map(model);
             }
 
             return instance;
@@ -33,7 +64,7 @@ namespace Pirates.GameObjects
             SortedList<int, MapElement> elementsInCamera = new SortedList<int, MapElement>();
 
             int i = 0;
-            foreach (int level in objectsToRender.Keys)//; level < Utils.MAX_LEVEL; level++)
+            foreach (int level in objectsToRender.Keys)
             {
                 List<MapElement> elements = new List<MapElement>();
                 if (objectsToRender.TryGetValue(level, out elements))
@@ -52,15 +83,12 @@ namespace Pirates.GameObjects
 
         private bool checkLocation(MapElement mapElement)
         {
-            bool result = false;
-            result |= mapElement.getLocation(MapElementCorner.LEFT_TOP).isInRect(ViewPortHelper.getInstance().left, ViewPortHelper.getInstance().top, ViewPortHelper.getInstance().right, ViewPortHelper.getInstance().bottom);
-            result |= mapElement.getLocation(MapElementCorner.LEFT_BOTTOM).isInRect(ViewPortHelper.getInstance().left, ViewPortHelper.getInstance().top, ViewPortHelper.getInstance().right, ViewPortHelper.getInstance().bottom);
-            result |= mapElement.getLocation(MapElementCorner.RIGHT_TOP).isInRect(ViewPortHelper.getInstance().left, ViewPortHelper.getInstance().top, ViewPortHelper.getInstance().right, ViewPortHelper.getInstance().bottom); ;
-            result |= mapElement.getLocation(MapElementCorner.RIGHT_BOTTOM).isInRect(ViewPortHelper.getInstance().left, ViewPortHelper.getInstance().top, ViewPortHelper.getInstance().right, ViewPortHelper.getInstance().bottom); ;
-            return result;
+            return mapElement.getLocation().
+                isInRect(ViewPortHelper.getInstance().left, ViewPortHelper.getInstance().top, 
+                ViewPortHelper.getInstance().right, ViewPortHelper.getInstance().bottom);
         }
 
-        public void onMapElementAdded(MapElement mapElement)
+        public void onElementAdded(MapElement mapElement)
         {
             if (objectsToRender != null)
             {

@@ -5,14 +5,13 @@ using System.Drawing;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pirates.GameObjects
-{
-    enum MapElementCorner { LEFT_TOP, RIGHT_TOP, RIGHT_BOTTOM, LEFT_BOTTOM }
+namespace Pirates.GameObjects.Map
+{    
     interface MapElement
     {
         void draw(Graphics g);
         void refreshVisibilityTowards(Ship ship);
         int getLevel();
-        Location getLocation(MapElementCorner corner);
+        Location getLocation();
     }
 }
