@@ -51,6 +51,7 @@
     <Compile Include="GameObjects\Map\CarribeanMapFactory.cs" />
     <Compile Include="GameObjects\Location.cs" />
     <Compile Include="GameObjects\Map\Map.cs" />
+    <Compile Include="GameObjects\Map\MapBoard.cs" />
     <Compile Include="GameObjects\Map\MapModel.cs" />
     <Compile Include="GameObjects\Map\NatureElement.cs" />
     <Compile Include="GameObjects\Map\MapElement.cs" />
@@ -60,13 +61,27 @@
     <Compile Include="GameObjects\Map\TestMapFactory.cs" />
     <Compile Include="GameObjects\Ships\AbstractShip.cs" />
     <Compile Include="GameObjects\Ships\Slup.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="LogCat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogCat.Designer.cs">
+      <DependentUpon>LogCat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rendering\MenuHandler.cs" />
     <Compile Include="Rendering\ViewPortHelper.cs" />
     <Compile Include="Rendering\GameEngineRenderer.cs" />
     <Compile Include="Rendering\MapUtils.cs" />
-    <Compile Include="MainWindow.cs">
+    <Compile Include="Windows\MainMenuWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="Windows\MainMenuWindow.Designer.cs">
+      <DependentUpon>MainMenuWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -76,7 +91,14 @@
     <Compile Include="UnitTests\TestResult.cs" />
     <Compile Include="UnitTests\TestRunner.cs" />
     <Compile Include="Utils.cs" />
-    <EmbeddedResource Include="MainWindow.resx">
+    <Compile Include="Windows\SettingsScreen.cs" />
+    <EmbeddedResource Include="LogCat.resx">
+      <DependentUpon>LogCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\MainMenuWindow.resx">
+      <DependentUpon>MainMenuWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -89,6 +111,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="GameData\Graphics\Maps\test_map.pmap" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -104,6 +127,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GameData\Graphics\Ships\slup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\test_map_map.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameData\Graphics\Maps\test_map.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

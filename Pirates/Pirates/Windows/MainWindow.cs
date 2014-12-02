@@ -12,14 +12,15 @@ using Pirates.Rendering;
 using Pirates.UnitTests;
 using Pirates.GameObjects.Players;
 
-namespace Pirates
+namespace Pirates.Windows
 {
     public partial class MainWindow : Form
-    {
-
+    {       
         private PictureBox SurfaceRenderer = new PictureBox();
 
         private GameEngineRenderer renderer;
+
+        private MenuHandler menu;
 
         public MainWindow()
         {
@@ -39,7 +40,7 @@ namespace Pirates
             // Dock the PictureBox to the form and set its background to white.            
             
             MapUtils.ARGBColor background = MapUtils.BackgroundARGBColor;
-            SurfaceRenderer.BackColor = Color.FromArgb(background.Alpha, background.Red, background.Green, background.Blue);
+            SurfaceRenderer.BackColor = Color.FromArgb(background.Alpha, background.Red, background.Green, background.Blue);            
             // Connect the Paint event of the PictureBox to the event handler method.
             SurfaceRenderer.Paint += new System.Windows.Forms.PaintEventHandler(this.surfaceRenderer_Paint);
             // Add the PictureBox control to the Form. 
@@ -70,6 +71,10 @@ namespace Pirates
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             renderer.stopMainGameLoop();
+            if (Owner != null)
+            {
+                Owner.Show();
+            }
         }
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
@@ -81,8 +86,23 @@ namespace Pirates
             if (e.KeyCode == Keys.Left)
             {
                 renderer.playerInfo.updateAngle(PlayerInfoAngle.LEFT);
-            }
+            }            
         }
 
+        protected override void OnResizeBegin(EventArgs e)
+        {
+            //MessageBox.Show("resizeBegin");
+        }
+
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            //MessageBox.Show("resizeEnd");
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            //MessageBox.Show("resize");
+            //do nothing
+        }
     }
 }

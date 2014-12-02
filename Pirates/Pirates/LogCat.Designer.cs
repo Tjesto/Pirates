@@ -1,6 +1,6 @@
 ﻿namespace Pirates
 {
-    partial class MainWindow
+    partial class LogCat
     {
         /// <summary>
         /// Required designer variable.
@@ -28,33 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.frameRenderTimer = new System.Windows.Forms.Timer(this.components);
+            this.LogBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
-            // frameRenderTimer
+            // LogBox
             // 
-            this.frameRenderTimer.Enabled = true;
-            this.frameRenderTimer.Interval = 40;
-            this.frameRenderTimer.Tick += new System.EventHandler(this.frameRenderTimer_Tick);
+            this.LogBox.Location = new System.Drawing.Point(12, 12);
+            this.LogBox.Name = "LogBox";
+            this.LogBox.Size = new System.Drawing.Size(757, 444);
+            this.LogBox.TabIndex = 0;
+            this.LogBox.Text = "";
             // 
-            // MainWindow
+            // LogCat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 729);
-            this.Name = "MainWindow";
-            this.Text = "MainWindow";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
-            this.Load += new System.EventHandler(this.MainWindow_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
+            this.ClientSize = new System.Drawing.Size(781, 468);
+            this.Controls.Add(this.LogBox);
+            this.Name = "LogCat";
+            this.Text = "LogCat";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Timer frameRenderTimer;
+        private System.Windows.Forms.RichTextBox LogBox;
     }
 }
-

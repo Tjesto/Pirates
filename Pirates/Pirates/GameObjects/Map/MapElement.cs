@@ -10,7 +10,7 @@ namespace Pirates.GameObjects.Map
     interface MapElement
     {
         void draw(Graphics g);
-        void refreshVisibilityTowards(Ship ship);
+        void refreshVisibilityTowards(float[] moveLocation);
         int getLevel();
         Location getLocation();
     }

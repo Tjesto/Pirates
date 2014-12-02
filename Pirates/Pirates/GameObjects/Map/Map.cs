@@ -37,6 +37,7 @@ namespace Pirates.GameObjects.Map
             {
                 model.notifyElementAdded(element);
             }
+
         }
 
         public static Map getInstance()

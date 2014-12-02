@@ -31,5 +31,15 @@ namespace Pirates.GameObjects.Players
         {
             playersAngle += (angle == PlayerInfoAngle.RIGHT ? 1 : -1)*playersShip.TURN_VALUE;
         }
+
+        public float[] move() {
+
+            float[] move = new float[2];
+            double angle = Utils.DegreeToRadian(playersAngle);
+            move[0] = (float) (Math.Sin(angle) * playersShip.velocity);
+            move[1] = (float)(Math.Cos(angle) * playersShip.velocity);
+ 
+            return move;
+        }
     }
 }

@@ -30,5 +30,13 @@ namespace Pirates.GameObjects
                 ((this.top > top && this.top < bottom) || (this.bottom > top && this.bottom < bottom)));
         }
 
+
+        internal void move(float dx, float dy)
+        {
+            left -= dx;
+            top += dy;
+            right -= dx;
+            bottom += dy;
+        }
     }
 }

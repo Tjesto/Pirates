@@ -9,9 +9,19 @@ namespace Pirates.GameObjects.Map
 {
     class TerrainObject : AbstractMapObject, MapElement
     {
-        public TerrainObject(int level) : base(level)
+        private string nameImpl;
+        public string name { get { return nameImpl; } }
+
+        public TerrainObject(int level)
+            : base(level)
         {
-            //TODO: initialize on object
+            //empty
+        }
+
+        public TerrainObject(int level, Location location, string name) : base(level)
+        {
+            this.location = location;
+            this.nameImpl = name;
         }
 
         public void draw(Graphics g)
@@ -19,9 +29,9 @@ namespace Pirates.GameObjects.Map
             //TODO:implement drawing the element
         }
 
-        public void refreshVisibilityTowards(Ship ship)
+        public void refreshVisibilityTowards(float[] moveLocation)
         {
-            //TODO: implement this
+            location.move(moveLocation[0], moveLocation[1]);
         }
 
         public int getLevel()

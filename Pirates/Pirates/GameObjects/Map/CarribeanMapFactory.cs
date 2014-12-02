@@ -8,6 +8,7 @@ namespace Pirates.GameObjects.Map
 {
     class CarribeanMapFactory : AbstractMapFactory
     {
+
         public override List<MapElement> generateMap()
         {
             List<MapElement> elements = new List<MapElement>();

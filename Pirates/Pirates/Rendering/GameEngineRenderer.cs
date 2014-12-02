@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Pirates.GameObjects.Map;
+using Pirates.Windows;
 
 namespace Pirates.Rendering
 {
@@ -21,6 +22,7 @@ namespace Pirates.Rendering
         private volatile List<TerrainObject> terrainObjects;
         private volatile List<Ship> ships;
         private volatile List<NatureElement> enviromentObjects;
+        private volatile MapBoard mapBoard;
         private volatile float testX, testY;
         private volatile MapModel model;
         public PlayersInfo playerInfo {get;set;}
@@ -68,26 +70,29 @@ namespace Pirates.Rendering
             {
                 //Players input refresh state
                 playerInfo.playersShip.azimuth = playerInfo.playersAngle;
-                   
+                float[] move = playerInfo.move();
                 //Refreshing elements visibility and position
+                mapBoard.refreshVisibilityTowards(move);
                 foreach (MapElement e in terrainObjects)
                 {
-                    e.refreshVisibilityTowards(playerInfo.playersShip);
+                    e.refreshVisibilityTowards(move);
                 }
 
                 foreach (Ship sh in ships)
                 {
                     sh.refresh();
                     if (!(sh.Equals(playerInfo.playersShip))) 
-                    {
-                        sh.refreshVisibilityTowards(playerInfo.playersShip);
+                    {                        
+                        sh.refreshVisibilityTowards(move);
                     }                    
                 }
                 
                 foreach (NatureElement n in enviromentObjects)
                 {
-                    n.refreshVisibilityTowards(playerInfo.playersShip);
-                }               
+                    n.refreshVisibilityTowards(move);
+                }
+
+                Thread.Sleep(25);
             }
         }
 
@@ -162,6 +167,10 @@ namespace Pirates.Rendering
             else if (e is NatureElement)
             {
                 addNature((NatureElement) e);
+            }
+            else if (e is MapBoard)
+            {
+                mapBoard = (MapBoard) e;
             }
         }
 

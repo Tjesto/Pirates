@@ -57,7 +57,7 @@ namespace Pirates.GameObjects.Ships
             g.DrawImage(texture, 0,0);
             g.TranslateTransform(-location.left, -location.top);
         }
-        public void refreshVisibilityTowards(Ship ship)
+        public void refreshVisibilityTowards(float[] move)
         {
 
         }
@@ -69,5 +69,7 @@ namespace Pirates.GameObjects.Ships
         {
             return location;
         }
+
+        public double velocity { get; set; }
     }
 }
