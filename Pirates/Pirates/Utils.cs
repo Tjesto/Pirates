@@ -26,9 +26,29 @@ namespace Pirates
             return new MainMenuWindow();
         }
 
-        internal static  double DegreeToRadian(double angle)
+        internal static double DegreeToRadian(double angle)
         {
             return Math.PI * angle / 180.0;
+        }
+
+        internal static System.Drawing.Color getLandColor()
+        {
+            if (GAME_MAP == MapFactoryType.TEST)
+            {
+                return System.Drawing.Color.DarkGoldenrod;
+            }
+
+            return System.Drawing.Color.DarkGoldenrod;
+        }
+
+        internal static bool checkAngle(float angle, int minValue, int maxValue)
+        {
+            if (minValue > maxValue)
+            {
+                minValue -= 360;
+            }
+
+            return (angle >= minValue && angle < maxValue);
         }
     }
 }

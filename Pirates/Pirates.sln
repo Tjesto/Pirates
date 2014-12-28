@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pirates", "Pirates\Pirates.csproj", "{1BCD549C-0F2B-4E35-8211-6BC2731C44C7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapEditor", "MapEditor\MapEditor.csproj", "{DEB4CA4D-906C-4EE1-8D00-FEBA0B8247A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Base", "Base\Base.csproj", "{523C9288-C7A0-40F5-8C42-BB0699E8BACB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{1BCD549C-0F2B-4E35-8211-6BC2731C44C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BCD549C-0F2B-4E35-8211-6BC2731C44C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BCD549C-0F2B-4E35-8211-6BC2731C44C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEB4CA4D-906C-4EE1-8D00-FEBA0B8247A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEB4CA4D-906C-4EE1-8D00-FEBA0B8247A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEB4CA4D-906C-4EE1-8D00-FEBA0B8247A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEB4CA4D-906C-4EE1-8D00-FEBA0B8247A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{523C9288-C7A0-40F5-8C42-BB0699E8BACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{523C9288-C7A0-40F5-8C42-BB0699E8BACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{523C9288-C7A0-40F5-8C42-BB0699E8BACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{523C9288-C7A0-40F5-8C42-BB0699E8BACB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

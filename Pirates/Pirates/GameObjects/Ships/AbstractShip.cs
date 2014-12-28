@@ -19,8 +19,27 @@ namespace Pirates.GameObjects.Ships
         protected int MAX_CREW;
         public float TURN_VALUE { set; get; }
         protected Location location;
+        protected Location rotatedLocation;
         protected Bitmap texture;
-        public float azimuth { set; get; }
+        private float _azimuth;
+        public float azimuth { set { _azimuth = value; refreshRotatedLocation(); } get { return _azimuth; } }
+
+        private void refreshRotatedLocation()
+        {
+            double angle = Utils.DegreeToRadian(_azimuth);
+            float middleX = location.left + (Math.Abs(location.right - location.left)) / 2;
+            float middleY = location.top + (Math.Abs(location.bottom - location.top)) / 2;
+            float newLeft = (float) Math.Round(middleX + (location.left - middleX) * Math.Cos(angle) - (location.top - middleY) * Math.Sin(angle));
+            float newRight = (float) Math.Round(middleX + (location.right - middleX) * Math.Cos(angle) - (location.top - middleY) * Math.Sin(angle));
+            float newTop = (float) Math.Round(middleY + (location.left - middleX) * Math.Sin(angle) + (location.top - middleY) * Math.Cos(angle));
+            float newBottom = (float) Math.Round(middleY + (location.right - middleX) * Math.Sin(angle) + (location.bottom - middleY) * Math.Cos(angle));            
+ 	        rotatedLocation = new Location(newLeft, newTop, newRight, newBottom);
+        }
+
+        protected void init() 
+        {
+            rotatedLocation = location;
+        }
 
         public void changeLocationToCenter()
         {
@@ -31,6 +50,7 @@ namespace Pirates.GameObjects.Ships
             float shipHeightP2 = texture.Size.Height/2;
             location = new Location(centerX - shipWidthP2, centerY - shipHeightP2, centerX + shipWidthP2, centerY + shipHeightP2);
             azimuth = 0;
+            init();
         }
 
         public void refresh()
@@ -55,6 +75,9 @@ namespace Pirates.GameObjects.Ships
             g.TranslateTransform(-ViewPortHelper.getInstance().right/2, -((ViewPortHelper.getInstance().bottom + halfHeight)/2));
             g.TranslateTransform(location.left, location.top);
             g.DrawImage(texture, 0,0);
+            /*Font drawFont = new Font("Arial", 16);
+            SolidBrush drawBrush = new SolidBrush(Color.Black);
+            g.DrawString((rotatedLocation.left + "x" + rotatedLocation.top), drawFont, drawBrush, 0,0);*/
             g.TranslateTransform(-location.left, -location.top);
         }
         public void refreshVisibilityTowards(float[] move)
@@ -67,7 +90,7 @@ namespace Pirates.GameObjects.Ships
         }
         public Location getLocation()
         {
-            return location;
+            return rotatedLocation;
         }
 
         public double velocity { get; set; }

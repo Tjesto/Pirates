@@ -8,6 +8,8 @@ using Pirates.Rendering;
 namespace Pirates.GameObjects.Map
 {
 
+    enum CollisionType { LEFT, RIGHT, TOP, BOTTOM, NONE };
+
     interface OnMapElementAddedListener
     {
         void onElementAdded(MapElement e);
@@ -15,7 +17,9 @@ namespace Pirates.GameObjects.Map
 
     class Map : OnMapElementAddedListener
     {        
-        protected static Map instance;
+        protected static Map instance;        
+
+        protected CollisionType collisionType;
 
         protected Dictionary<int, List<MapElement>> objectsToRender = new Dictionary<int,List<MapElement>>();
 
@@ -60,7 +64,7 @@ namespace Pirates.GameObjects.Map
             return instance;
         }
 
-        public SortedList<int, MapElement> getMapElementsInCamera()
+        public SortedList<int, MapElement> getMapElements()
         {
             SortedList<int, MapElement> elementsInCamera = new SortedList<int, MapElement>();
 
@@ -71,11 +75,8 @@ namespace Pirates.GameObjects.Map
                 if (objectsToRender.TryGetValue(level, out elements))
                 {                    
                     foreach (MapElement e in elements)
-                    {
-                        if (checkLocation(e))
-                        {
-                            elementsInCamera.Add(i++, e);
-                        }
+                    {                        
+                        elementsInCamera.Add(i++, e);                     
                     }
                 }
             }
@@ -103,6 +104,117 @@ namespace Pirates.GameObjects.Map
                     elements.Add(mapElement);
                 }
             }
+        }
+
+        public bool isCollisionDetected(Players.PlayersInfo player) {            
+            //foreach (int level in objectsToRender.Keys)
+            //{
+            //    List<MapElement> elements = new List<MapElement>();
+            //    if (objectsToRender.TryGetValue(level, out elements))
+            //    {                    
+            //        foreach (MapElement e in elements)
+            //        {
+            //            if (checkForCollision(e, playerShip.getLocation()))
+            //            {
+            //                Log.i("ms", e.getLocation().right + " x " + e.getLocation().left);
+            //                return true;
+            //            }
+            //        }
+            //    }
+            //}
+            collisionType = CollisionType.NONE;
+            int[] tile = player.getCurrentTile();
+            if (tile[0] == 0)
+            {
+                collisionType = CollisionType.LEFT;
+            }
+            else if (tile[0] == 159)
+            {
+                collisionType = CollisionType.RIGHT;
+            }
+
+            if (tile[1] == 0)
+            {
+                collisionType = collisionType == CollisionType.NONE ? CollisionType.TOP : collisionType;
+            }
+            else if (tile[1] == 119)
+            {
+                collisionType = collisionType == CollisionType.NONE ? CollisionType.BOTTOM : collisionType;
+            }
+            Log.d("Collision", collisionType.ToString());
+            if (collisionType != CollisionType.NONE)
+            {
+                return true;
+            }
+
+            //if (MapBoard.getInstance().isBlocked(tile[0], tile[1]))
+            {
+                if ((MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1]) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] - 1) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] + 1)) && Utils.checkAngle(player.playersAngle, 300, 60))
+                {
+                    collisionType = CollisionType.TOP;
+                }
+                else if ((MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1]) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] - 1) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] + 1)) && Utils.checkAngle(player.playersAngle, 120, 240))
+                {
+                    collisionType = CollisionType.BOTTOM;
+                }
+                else if ((MapBoard.getInstance().isBlocked(tile[0], tile[1] - 1) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] - 1) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] - 1)) && Utils.checkAngle(player.playersAngle, 210, 330))
+                {
+                    collisionType = CollisionType.LEFT;
+                }
+                else if ((MapBoard.getInstance().isBlocked(tile[0], tile[1] + 1) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] + 1) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] + 1)) && Utils.checkAngle(player.playersAngle, 30, 150))
+                {
+                    collisionType = CollisionType.RIGHT;
+                }                
+            }
+            
+            Log.d("Collision 2", collisionType.ToString());
+            return collisionType != CollisionType.NONE;
+        }
+
+        private bool checkForCollision(MapElement e, Location playersLocation)
+        {
+            
+
+            float elementTop = e.getLocation().top;
+            float elementLeft = e.getLocation().left;
+            float elementBottom = e.getLocation().bottom;
+            float elementRight = e.getLocation().right;
+            float playerTop = playersLocation.top; 
+            float playerLeft = playersLocation.left;
+            float playerRight = playersLocation.right;
+            float playerBottom = playersLocation.bottom;
+            
+            if (e is MapBoard)
+            {                
+                return !Location.isIn(e.getLocation(), playersLocation, out collisionType);
+            }
+
+
+            return !Location.isOutOf(e.getLocation(), playersLocation, out collisionType);
+        }
+
+        internal float[] getCollisionRosolution()
+        {            
+            switch (collisionType)
+            {
+                case CollisionType.LEFT:
+                    return new float[] { 1, 0 };
+                    break;
+                case CollisionType.RIGHT:
+                    return new float[] { -1, 0 };
+                    break;
+                case CollisionType.TOP:
+                    return new float[] { 0, -1 };
+                    break;
+                case CollisionType.BOTTOM:
+                    return new float[] { 0, 1 };
+                    break;
+                case CollisionType.NONE:
+                    break;
+                default:
+                    break;
+            }
+            return null;
         }
     }
 }

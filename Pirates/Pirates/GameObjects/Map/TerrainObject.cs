@@ -26,7 +26,9 @@ namespace Pirates.GameObjects.Map
 
         public void draw(Graphics g)
         {
-            //TODO:implement drawing the element
+            Pen pen = new Pen(Utils.getLandColor(), 1);
+            g.DrawRectangle(pen, location.left, location.top, 10, 10);
+            g.FillRectangle(Brushes.DarkGoldenrod, location.left, location.top, 10, 10);
         }
 
         public void refreshVisibilityTowards(float[] moveLocation)
@@ -42,6 +44,11 @@ namespace Pirates.GameObjects.Map
         public Location getLocation()
         {
             return location;            
+        }
+
+        public override string ToString()
+        {
+            return nameImpl + " is in [" + location + "]";
         }
 
     }

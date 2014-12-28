@@ -18,11 +18,13 @@ namespace Pirates.GameObjects.Ships
             TURN_VALUE = 2;
             velocity = 2;
             location = new Location(0, 0, 0, 0);
+            init();
         }
 
         public Slup(Location location) : this()
         {            
             this.location = location;
+            init();
         }
 
     }

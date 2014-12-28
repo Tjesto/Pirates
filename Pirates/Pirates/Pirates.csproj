@@ -129,10 +129,17 @@
     <None Include="GameData\Graphics\Ships\slup.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\map.pmapx" />
     <None Include="Resources\test_map_map.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameData\Graphics\Maps\test_map.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Base\Base.csproj">
+      <Project>{523c9288-c7a0-40f5-8c42-bb0699e8bacb}</Project>
+      <Name>Base</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

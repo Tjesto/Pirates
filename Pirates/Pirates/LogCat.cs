@@ -7,14 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace Pirates
 {
     public partial class LogCat : Form
     {
+        StreamWriter logger;
         public LogCat()
         {
+            logger = new StreamWriter("log.log");
             InitializeComponent();
+        }
+
+        private string createName()
+        {
+            StringBuilder sb = new StringBuilder("LogCat");
+            sb.Append("_").Append(DateTime.Now).Append(".log");
+            return sb.ToString();
         }
 
         private long lastWriteTime = 0;
@@ -51,14 +61,21 @@ namespace Pirates
             {
                 try
                 {
-                    LogBox.AppendText(sb.ToString());
-                    lastWriteTime = DateTime.Now.Ticks;
+                    LogBox.AppendText(sb.ToString());                    
                 }
                 catch (Exception e)
                 {
                     //do nothing
                 }
+                logger.WriteLine(sb.ToString());
+                lastWriteTime = DateTime.Now.Ticks;
             }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            logger.Close();
+            base.OnFormClosed(e);
         }
     }
 }

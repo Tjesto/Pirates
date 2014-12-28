@@ -69,15 +69,24 @@ namespace Pirates.Rendering
             while (rendering)
             {
                 //Players input refresh state
+                float[] move;
                 playerInfo.playersShip.azimuth = playerInfo.playersAngle;
-                float[] move = playerInfo.move();
+                if (Map.getInstance().isCollisionDetected(playerInfo))
+                {
+                    Log.d("Renderer", "Collision detected");
+                    move = Map.getInstance().getCollisionRosolution();
+                }
+                else
+                {                    
+                    move = playerInfo.move();
+                }
                 //Refreshing elements visibility and position
-                mapBoard.refreshVisibilityTowards(move);
+                //mapBoard.refreshVisibilityTowards(move);
                 foreach (MapElement e in terrainObjects)
                 {
                     e.refreshVisibilityTowards(move);
                 }
-
+                MapBoard.getInstance().refreshVisibilityTowards(move);
                 foreach (Ship sh in ships)
                 {
                     sh.refresh();
@@ -175,12 +184,21 @@ namespace Pirates.Rendering
         }
 
         public void invalidateMap(Graphics g)
-        {            
-            SortedList<int, MapElement> elementsInViewport = Map.getInstance().getMapElementsInCamera();
+        {
+            float right = ViewPortHelper.getInstance().right;
+            float bottom = ViewPortHelper.getInstance().bottom;
+            int linesV = (int) (ViewPortHelper.getInstance().right / 10);
+            int linesH = (int) (ViewPortHelper.getInstance().bottom / 10);
+
+           
+            //SortedList<int, MapElement> elementsInViewport = Map.getInstance().getMapElementsInCamera();
+            SortedList<int, MapElement> elementsInViewport = Map.getInstance().getMapElements();
             foreach (MapElement e in elementsInViewport.Values)
             {
                 e.draw(g);
-            }            
+            }
+
+            
         }
     }
 }

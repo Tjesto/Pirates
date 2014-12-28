@@ -13,9 +13,9 @@ namespace Pirates.GameObjects.Map
         public override List<MapElement> generateMap()
         {
             List<MapElement> elements = new List<MapElement>();
-            parseMap(elements, Properties.Resources.test_map1);
-            Bitmap map = Properties.Resources.test_map;
-            MapBoard.createMapBoard(new Location(-map.Width/2, -map.Height/2, map.Width/2, map.Height/2), map);
+            Bitmap map = Properties.Resources.test_map;  
+            MapBoard.createMapBoard(new Location(-map.Width / 2, -map.Height / 2, 53 * map.Width / 64, 13 * map.Height / 16), map);
+            parseMap(elements, Properties.Resources.map);                      
             elements.Add(MapBoard.getInstance());
             Log.d("map factory", elements.Contains(MapBoard.getInstance()) + "");
             return elements;

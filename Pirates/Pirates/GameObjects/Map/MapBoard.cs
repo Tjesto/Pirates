@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Base;
 using System.Threading.Tasks;
 
 namespace Pirates.GameObjects.Map
@@ -12,6 +13,8 @@ namespace Pirates.GameObjects.Map
         private Bitmap map;
 
         private Location location;
+
+        private FieldType[,] mapBoard;
 
         private static MapBoard board;
 
@@ -36,16 +39,19 @@ namespace Pirates.GameObjects.Map
         {
             this.map = map;
             location = startLocation;
+            this.mapBoard = new FieldType[160,120];
         }
 
         public void draw(Graphics g)
         {
-            g.DrawImage(map, location.left, location.top);
+            //Log.d("MapBoard", location.ToString());
+            //g.DrawImage(map, location.left, location.top);
+            g.DrawRectangle(new Pen(Color.DarkBlue, 1), location.left, location.top, 1600, 1200);
         }
 
         public void refreshVisibilityTowards(float[] move)
         {
-            Log.d("map board", "move to new location");
+            //Log.d("map board", "move to new location");
             location.move(move[0], move[1]);
         }
 
@@ -57,6 +63,17 @@ namespace Pirates.GameObjects.Map
         public Location getLocation()
         {
             return location;
+        }
+
+        public void add(int x, int y, FieldType value)
+        {
+            mapBoard[x, y] = value;
+        }
+
+
+        internal bool isBlocked(int p1, int p2)
+        {
+            return mapBoard[p1, p2] == FieldType.LAND;
         }
     }
 }

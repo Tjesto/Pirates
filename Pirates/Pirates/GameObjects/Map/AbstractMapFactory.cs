@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Pirates.Rendering;
 
 using System.Windows.Forms;
+using Base;
 
 namespace Pirates.GameObjects.Map
 {
@@ -30,7 +31,8 @@ namespace Pirates.GameObjects.Map
         {
             string mapResource = System.Text.Encoding.Default.GetString(resoruce);
             string[] points = mapResource.Split('\n');
-            for (int i = 1; i < points.Length; i++)
+
+            /*for (int i = 1; i < points.Length; i++)
             {
                 string[] currentPointObject = points[i].Split(new char[]{' ', '\t'}, StringSplitOptions.RemoveEmptyEntries);
                 string[] location = currentPointObject[1].Split(',');
@@ -46,7 +48,27 @@ namespace Pirates.GameObjects.Map
                 String name = currentPointObject[3].Replace('_', ' ').Replace('\r', '\0');
                 elements.Add(new TerrainObject(level, l, name));
             }
-            
+            */
+            for (int i = 0; i < 160; i++)
+            {
+                string[] line = points[i].Split('#');
+                for (int j = 0; j < 120; j++)
+                {
+                    string[] f = line[j].Split(':');
+                    if (f.Length < 2)
+                        MessageBox.Show(line[j] + ";; " + f.Length + "\n" + j + "x" +i);
+                    string fieldValue = f[1];
+                    FieldType type = (FieldType) int.Parse(fieldValue);
+                    MapBoard.getInstance().add(i, j, type);
+                    if (type != FieldType.WATER)
+                    {
+                        float left = i * 10 + MapBoard.getInstance().getLocation().left;
+                        float top = j * 10 + MapBoard.getInstance().getLocation().top; ;
+                        elements.Add(new TerrainObject(20, new Location(left, top, left + 10, top + 10), ""));
+                    }
+                }
+            }
+
         }
 
         public abstract List<MapElement> generateMap();
