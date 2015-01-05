@@ -3,6 +3,7 @@ using Pirates.GameObjects.Players;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -22,6 +23,7 @@ namespace Pirates.Rendering
         private volatile List<TerrainObject> terrainObjects;
         private volatile List<Ship> ships;
         private volatile List<NatureElement> enviromentObjects;
+        private volatile List<CityObject> cities;
         private volatile MapBoard mapBoard;
         private volatile float testX, testY;
         private volatile MapModel model;
@@ -33,6 +35,7 @@ namespace Pirates.Rendering
             mainGameThread = new Thread(startGameLoop);
             rendering = false;
             terrainObjects = new List<TerrainObject>();
+            cities = new List<CityObject>();
             ships = new List<Ship>();
             enviromentObjects = new List<NatureElement>();
             model = new MapModel(this);            
@@ -65,10 +68,20 @@ namespace Pirates.Rendering
         }
 
         void startGameLoop()
-        {
+        {            
             while (rendering)
             {
                 //Players input refresh state
+                if (Map.getInstance().forcePause)
+                {
+                    DialogResult r = MessageBox.Show("Czy chcesz wpłynąć do portu " + MapBoard.getInstance().getPortName(), "", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);
+                    Map.getInstance().portDecided = true;
+                    Map.getInstance().forcePause = false;
+                    Map.getInstance().saveCurrentAskAngle(playerInfo.playersAngle);
+                    playerInfo.setAngleToGoOut();
+                    Map.getInstance().isInPort = false;
+                    continue;
+                }
                 float[] move;
                 playerInfo.playersShip.azimuth = playerInfo.playersAngle;
                 if (Map.getInstance().isCollisionDetected(playerInfo))
@@ -169,6 +182,10 @@ namespace Pirates.Rendering
             {
                 addTerrain((TerrainObject) e);
             }
+            else if (e is CityObject)
+            {
+                addCity((CityObject) e);
+            }            
             else if (e is Ship)
             {
                 addShip((Ship) e);
@@ -181,6 +198,11 @@ namespace Pirates.Rendering
             {
                 mapBoard = (MapBoard) e;
             }
+        }
+
+        private void addCity(CityObject cityObject)
+        {
+            cities.Add(cityObject);
         }
 
         public void invalidateMap(Graphics g)

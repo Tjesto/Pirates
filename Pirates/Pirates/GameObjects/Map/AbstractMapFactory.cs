@@ -64,7 +64,14 @@ namespace Pirates.GameObjects.Map
                     {
                         float left = i * 10 + MapBoard.getInstance().getLocation().left;
                         float top = j * 10 + MapBoard.getInstance().getLocation().top; ;
-                        elements.Add(new TerrainObject(20, new Location(left, top, left + 10, top + 10), ""));
+                        if (type == FieldType.LAND)
+                        {
+                            elements.Add(new TerrainObject(20, new Location(left, top, left + 10, top + 10), ""));
+                        }
+                        else if (type == FieldType.CITY)
+                        {
+                            elements.Add(new CityObject(20, new Location(left, top, left + 10, top + 10), ""));
+                        }
                     }
                 }
             }

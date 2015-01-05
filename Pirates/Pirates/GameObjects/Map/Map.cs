@@ -17,9 +17,17 @@ namespace Pirates.GameObjects.Map
 
     class Map : OnMapElementAddedListener
     {        
-        protected static Map instance;        
+        protected static Map instance;
+
+        public bool forcePause { set; get; }
+
+        public bool isInPort { set; get; }
+
+        public bool portDecided { set; get; }
 
         protected CollisionType collisionType;
+
+        protected float currentAskAngle { set; get; }
 
         protected Dictionary<int, List<MapElement>> objectsToRender = new Dictionary<int,List<MapElement>>();
 
@@ -41,7 +49,7 @@ namespace Pirates.GameObjects.Map
             {
                 model.notifyElementAdded(element);
             }
-
+            currentAskAngle = -1;
         }
 
         public static Map getInstance()
@@ -166,9 +174,26 @@ namespace Pirates.GameObjects.Map
                     collisionType = CollisionType.RIGHT;
                 }                
             }
-            
-            Log.d("Collision 2", collisionType.ToString());
+            if (MapBoard.getInstance().canDock)
+            {
+                forcePause = true;
+            }            
             return collisionType != CollisionType.NONE;
+        }
+
+        private bool checkAngle(float playersAngle)
+        {
+            if (currentAskAngle < 0)
+            {
+                return true;
+            }
+
+            if (currentAskAngle > 270 && playersAngle < 90)
+            {
+                return 360 - currentAskAngle + playersAngle > 90;
+            }
+
+            return currentAskAngle - playersAngle > 90;
         }
 
         private bool checkForCollision(MapElement e, Location playersLocation)
@@ -215,6 +240,11 @@ namespace Pirates.GameObjects.Map
                     break;
             }
             return null;
+        }
+
+        internal void saveCurrentAskAngle(float angle)
+        {
+            currentAskAngle = angle;
         }
     }
 }

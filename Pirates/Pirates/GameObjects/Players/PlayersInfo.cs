@@ -58,5 +58,19 @@ namespace Pirates.GameObjects.Players
                                     (int) ((((playersShip.getLocation().top + playersShip.getLocation().bottom) /2 ) - MapBoard.getInstance().getLocation().top)/10)};
             return currentTile;
         }
+
+        internal void setAngleToGoOut()
+        {
+            playersAngle += 180;
+            if (playersAngle < 0)
+            {
+                playersAngle = 360 + playersAngle;
+            }
+
+            if (playersAngle >= 360)
+            {
+                playersAngle = playersAngle - 360;
+            }
+        }
     }
 }

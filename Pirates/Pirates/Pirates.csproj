@@ -50,6 +50,7 @@
     <Compile Include="GameObjects\Map\AbstractMapObject.cs" />
     <Compile Include="GameObjects\Map\CarribeanMapFactory.cs" />
     <Compile Include="GameObjects\Location.cs" />
+    <Compile Include="GameObjects\Map\CityObject.cs" />
     <Compile Include="GameObjects\Map\Map.cs" />
     <Compile Include="GameObjects\Map\MapBoard.cs" />
     <Compile Include="GameObjects\Map\MapModel.cs" />

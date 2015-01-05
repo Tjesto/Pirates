@@ -18,6 +18,8 @@ namespace Pirates.GameObjects.Map
 
         private static MapBoard board;
 
+        public bool canDock { get; set; }
+
         public static void createMapBoard(Location startLocation, Bitmap map) 
         {
             if (board == null)
@@ -73,7 +75,18 @@ namespace Pirates.GameObjects.Map
 
         internal bool isBlocked(int p1, int p2)
         {
-            return mapBoard[p1, p2] == FieldType.LAND;
+            return mapBoard[p1, p2] == FieldType.LAND || isPort(p1, p2);
+        }
+
+        internal bool isPort(int p1, int p2)
+        {
+            canDock = mapBoard[p1, p2] == FieldType.CITY;
+            return canDock;
+        }
+
+        internal string getPortName()
+        {
+            return "Nazwa Tymczasowa";
         }
     }
 }
