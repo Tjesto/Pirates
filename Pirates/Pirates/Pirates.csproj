@@ -69,16 +69,12 @@
     <Compile Include="LogCat.Designer.cs">
       <DependentUpon>LogCat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Rendering\ICleanupable.cs" />
     <Compile Include="Rendering\MenuHandler.cs" />
+    <Compile Include="Rendering\PortRenderingMap.cs" />
     <Compile Include="Rendering\ViewPortHelper.cs" />
     <Compile Include="Rendering\GameEngineRenderer.cs" />
     <Compile Include="Rendering\MapUtils.cs" />
-    <Compile Include="Windows\DockWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Windows\DockWindow.Designer.cs">
-      <DependentUpon>DockWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="Windows\MainMenuWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,9 +97,6 @@
     <Compile Include="Windows\SettingsScreen.cs" />
     <EmbeddedResource Include="LogCat.resx">
       <DependentUpon>LogCat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Windows\DockWindow.resx">
-      <DependentUpon>DockWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\MainMenuWindow.resx">
       <DependentUpon>MainMenuWindow.cs</DependentUpon>
