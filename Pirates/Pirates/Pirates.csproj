@@ -73,6 +73,12 @@
     <Compile Include="Rendering\ViewPortHelper.cs" />
     <Compile Include="Rendering\GameEngineRenderer.cs" />
     <Compile Include="Rendering\MapUtils.cs" />
+    <Compile Include="Windows\DockWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Windows\DockWindow.Designer.cs">
+      <DependentUpon>DockWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Windows\MainMenuWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     <Compile Include="Windows\SettingsScreen.cs" />
     <EmbeddedResource Include="LogCat.resx">
       <DependentUpon>LogCat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Windows\DockWindow.resx">
+      <DependentUpon>DockWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Windows\MainMenuWindow.resx">
       <DependentUpon>MainMenuWindow.cs</DependentUpon>
@@ -141,6 +150,9 @@
       <Project>{523c9288-c7a0-40f5-8c42-bb0699e8bacb}</Project>
       <Name>Base</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameData\Graphics\Others\Port_bg.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

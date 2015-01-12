@@ -104,5 +104,15 @@ namespace Pirates.Windows
             //MessageBox.Show("resize");
             //do nothing
         }
+
+        internal void pause()
+        {
+            frameRenderTimer.Stop();
+        }
+
+        internal void resume()
+        {
+            frameRenderTimer.Start();
+        }
     }
 }
