@@ -69,6 +69,7 @@
     <Compile Include="LogCat.Designer.cs">
       <DependentUpon>LogCat.cs</DependentUpon>
     </Compile>
+    <Compile Include="Rendering\AbstractRenderingMap.cs" />
     <Compile Include="Rendering\ICleanupable.cs" />
     <Compile Include="Rendering\MenuHandler.cs" />
     <Compile Include="Rendering\PortRenderingMap.cs" />

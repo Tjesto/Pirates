@@ -15,12 +15,21 @@ using Pirates.GameObjects.Players;
 namespace Pirates.Windows
 {
     public partial class MainWindow : Form
-    {       
+    {
+        public interface PlayerInputListener
+        {
+            bool onClickAction(MouseEventArgs e);
+
+            bool onMouseMove(MouseEventArgs e);
+        }
+
         private PictureBox SurfaceRenderer = new PictureBox();
 
         private GameEngineRenderer renderer;
 
         private MenuHandler menu;
+
+        private List<PlayerInputListener> listeners;
 
         public MainWindow()
         {
@@ -29,6 +38,7 @@ namespace Pirates.Windows
                 TestRunner.getInstance().runTests();
             }
             InitializeComponent();
+            listeners = new List<PlayerInputListener>();
             SurfaceRenderer.Dock = DockStyle.Fill;
             ViewPortHelper.getInstance(0, 0, 1024, 768);
             renderer = new GameEngineRenderer(this);
@@ -89,6 +99,16 @@ namespace Pirates.Windows
             }            
         }
 
+        public void registerListener(PlayerInputListener listener)
+        {
+            listeners.Add(listener);
+        }
+
+        public void unregisterListener(PlayerInputListener listener)
+        {
+            listeners.Remove(listener);
+        }
+
         protected override void OnResizeBegin(EventArgs e)
         {
             //MessageBox.Show("resizeBegin");
@@ -113,6 +133,28 @@ namespace Pirates.Windows
         internal void resume()
         {
             frameRenderTimer.Start();
+        }
+
+        private void MainWindow_MouseClick(object sender, MouseEventArgs e)
+        {
+            foreach (PlayerInputListener listener in listeners)
+            {
+                if (listener.onClickAction(e))
+                {
+                    break;
+                }
+            }
+        }
+
+        private void MainWindow_MouseMove(object sender, MouseEventArgs e)
+        {
+            foreach (PlayerInputListener listener in listeners)
+            {
+                if (listener.onMouseMove(e))
+                {
+                    break;
+                }
+            }
         }
     }
 }

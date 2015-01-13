@@ -88,5 +88,10 @@ namespace Pirates.GameObjects
             }
             return true;
         }
+
+        internal bool containsPoint(int x, int y)
+        {
+            return (left < x && right > x || top < y && bottom > y);
+        }
     }
 }

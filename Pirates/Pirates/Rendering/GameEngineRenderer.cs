@@ -83,8 +83,7 @@ namespace Pirates.Rendering
                 //Players input refresh state
                 if (Map.getInstance().forcePause)
                 {
-                    //DialogResult r = MessageBox.Show("Czy chcesz wpłynąć do portu " + MapBoard.getInstance().getPortName(), "", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);
-                    window.pause();
+                    //DialogResult r = MessageBox.Show("Czy chcesz wpłynąć do portu " + MapBoard.getInstance().getPortName(), "", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);                    
                     currrentRenderingMode = GameEngineRendererMode.PORT;
                     //DockWindow dock = DockWindow.showWindow();                    
                     DialogResult r = window.DialogResult;
@@ -95,8 +94,8 @@ namespace Pirates.Rendering
                         Map.getInstance().saveCurrentAskAngle(playerInfo.playersAngle);
                         playerInfo.setAngleToGoOut();
                         Map.getInstance().isInPort = false;
-                        currrentRenderingMode = GameEngineRendererMode.SEA;
-                        window.resume();
+                        window.DialogResult = DialogResult.None;
+                        currrentRenderingMode = GameEngineRendererMode.SEA;                        
                     }
                     continue;
                 }
@@ -234,6 +233,7 @@ namespace Pirates.Rendering
                 case GameEngineRendererMode.FIGHT:
                     break;
                 case GameEngineRendererMode.PORT:
+                    PortRenderingMap.getInstance(window).draw(g);
                     break;
                 case GameEngineRendererMode.SEA:
                     invalidateMapSeaMode(g);

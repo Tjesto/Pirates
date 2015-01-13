@@ -50,5 +50,10 @@ namespace Pirates
 
             return (angle >= minValue && angle < maxValue);
         }
+
+        internal static float dpToPx(int p)
+        {
+            return p * Pirates.Rendering.ViewPortHelper.getInstance().right / 1024;
+        }
     }
 }
