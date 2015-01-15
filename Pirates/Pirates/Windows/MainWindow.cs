@@ -31,6 +31,8 @@ namespace Pirates.Windows
 
         private List<PlayerInputListener> listeners;
 
+        internal GameEngineRenderer.GameEngineRendererMode nextMode { set; get; }
+
         public MainWindow()
         {
             if (Utils.TESTS)
@@ -40,6 +42,7 @@ namespace Pirates.Windows
             InitializeComponent();
             listeners = new List<PlayerInputListener>();
             SurfaceRenderer.Dock = DockStyle.Fill;
+            nextMode = GameEngineRenderer.GameEngineRendererMode.NONE;
             ViewPortHelper.getInstance(0, 0, 1024, 768);
             renderer = new GameEngineRenderer(this);
 

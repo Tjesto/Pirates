@@ -70,6 +70,7 @@
       <DependentUpon>LogCat.cs</DependentUpon>
     </Compile>
     <Compile Include="Rendering\AbstractRenderingMap.cs" />
+    <Compile Include="Rendering\DockRenderingMap.cs" />
     <Compile Include="Rendering\ICleanupable.cs" />
     <Compile Include="Rendering\MenuHandler.cs" />
     <Compile Include="Rendering\PortRenderingMap.cs" />
@@ -147,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GameData\Graphics\Others\Port_bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameData\Graphics\Others\Dock_bg.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,10 +15,13 @@ namespace Pirates.Rendering
 {
     class GameEngineRenderer : OnMapElementAddedListener
     {
-        enum GameEngineRendererMode {
+        internal enum GameEngineRendererMode
+        {
             SEA,
             PORT,
-            FIGHT
+            FIGHT,
+            DOCK,
+            NONE
         }
 
         private MainWindow window;
@@ -83,19 +86,26 @@ namespace Pirates.Rendering
                 //Players input refresh state
                 if (Map.getInstance().forcePause)
                 {
-                    //DialogResult r = MessageBox.Show("Czy chcesz wpłynąć do portu " + MapBoard.getInstance().getPortName(), "", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);                    
-                    currrentRenderingMode = GameEngineRendererMode.PORT;
-                    //DockWindow dock = DockWindow.showWindow();                    
-                    DialogResult r = window.DialogResult;
-                    if (r != DialogResult.None)
+                    //DialogResult r = MessageBox.Show("Czy chcesz wpłynąć do portu " + MapBoard.getInstance().getPortName(), "", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);                                        
+                    if (window.nextMode != GameEngineRendererMode.PORT && window.nextMode != GameEngineRendererMode.NONE)
+                    {
+                        currrentRenderingMode = window.nextMode;
+                    }
+                    else if (window.nextMode == GameEngineRendererMode.NONE)
+                    {
+                        currrentRenderingMode = GameEngineRendererMode.PORT;
+                        window.nextMode = currrentRenderingMode;
+                    }
+                    //DockWindow dock = DockWindow.showWindow();                                        
+                    if (window.nextMode == GameEngineRendererMode.SEA)
                     {
                         Map.getInstance().portDecided = true;
                         Map.getInstance().forcePause = false;
                         Map.getInstance().saveCurrentAskAngle(playerInfo.playersAngle);
                         playerInfo.setAngleToGoOut();
-                        Map.getInstance().isInPort = false;
-                        window.DialogResult = DialogResult.None;
-                        currrentRenderingMode = GameEngineRendererMode.SEA;                        
+                        Map.getInstance().isInPort = false;                        
+                        currrentRenderingMode = GameEngineRendererMode.SEA;
+                        window.nextMode = GameEngineRendererMode.NONE;
                     }
                     continue;
                 }
@@ -237,6 +247,9 @@ namespace Pirates.Rendering
                     break;
                 case GameEngineRendererMode.SEA:
                     invalidateMapSeaMode(g);
+                    break;
+                case GameEngineRendererMode.DOCK:
+                    DockRenderingMap.getInstance(window).draw(g);
                     break;
             }
             
