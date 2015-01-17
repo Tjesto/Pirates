@@ -24,7 +24,11 @@ namespace Pirates.GameObjects.Players
         public PlayersInfo()
         {
             //restore state
+            crewNumbers = 5;
+            money = 10;
+            food = 450;
             playersShip = new Slup();
+            playersShip.damages = 0;
             ((AbstractShip) playersShip).changeLocationToCenter();
         }
 
@@ -71,6 +75,43 @@ namespace Pirates.GameObjects.Players
             {
                 playersAngle = playersAngle - 360;
             }
+        }
+
+        public int crewNumbers { get; set; }
+
+        public int money { get; set; }
+
+        public int food { get; set; }
+
+        public int foodForDays()
+        {
+            return food / 34;
+        }
+
+        public int foodForMonths()
+        {
+            return foodForDays() / 30;
+        }
+
+        internal string getFoodString()
+        {
+            if (foodForDays() > 30)
+            {
+                return foodForMonths() + " mies.";
+            }
+            else if (foodForDays() >= 0)
+            {
+                return foodForDays() + " dni";
+            }
+            else
+            {
+                return "0 dni";
+            }
+        }
+
+        internal void newDay()
+        {
+            food -= 34;
         }
     }
 }

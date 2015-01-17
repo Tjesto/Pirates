@@ -30,6 +30,7 @@ namespace Pirates.GameObjects.Map
         protected float currentAskAngle { set; get; }
 
         protected Dictionary<int, List<MapElement>> objectsToRender = new Dictionary<int,List<MapElement>>();
+        private int LAND_DAMAGE_COLLISION = 5;
 
         protected Map(MapModel model)
         {
@@ -177,7 +178,12 @@ namespace Pirates.GameObjects.Map
             if (MapBoard.getInstance().canDock)
             {
                 forcePause = true;
-            }            
+            }
+            else if (collisionType != CollisionType.NONE)
+            {
+                player.playersShip.damages += LAND_DAMAGE_COLLISION;
+            }
+
             return collisionType != CollisionType.NONE;
         }
 

@@ -12,6 +12,7 @@ namespace Pirates.GameObjects.Ships
 {
     class AbstractShip : Ship
     {
+        public int MAX_DAMAGE_LEVEL = 500;
         protected int level = 15;
         protected string type;
         protected int cannonsCount;
@@ -78,7 +79,10 @@ namespace Pirates.GameObjects.Ships
             /*Font drawFont = new Font("Arial", 16);
             SolidBrush drawBrush = new SolidBrush(Color.Black);
             g.DrawString((rotatedLocation.left + "x" + rotatedLocation.top), drawFont, drawBrush, 0,0);*/
-            g.TranslateTransform(-location.left, -location.top);
+            g.TranslateTransform(-location.left, -location.top);            
+            g.TranslateTransform(ViewPortHelper.getInstance().right / 2, (ViewPortHelper.getInstance().bottom + halfHeight) / 2);
+            g.RotateTransform(-azimuth);
+            g.TranslateTransform(-ViewPortHelper.getInstance().right / 2, -((ViewPortHelper.getInstance().bottom + halfHeight) / 2));            
         }
         public void refreshVisibilityTowards(float[] move)
         {
@@ -94,5 +98,7 @@ namespace Pirates.GameObjects.Ships
         }
 
         public double velocity { get; set; }
+
+        public int damages { get; set; }
     }
 }

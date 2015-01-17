@@ -21,7 +21,9 @@ namespace Pirates.Rendering
             PORT,
             FIGHT,
             DOCK,
-            NONE
+            NONE,
+            GAME_OVER,
+            GAME_OVER_FOOD
         }
 
         private MainWindow window;
@@ -80,14 +82,25 @@ namespace Pirates.Rendering
         }
 
         void startGameLoop()
-        {            
+        {
+            int partOfDay = 0;
             while (rendering)
             {
+                if (playerInfo.playersShip.damages >= playerInfo.playersShip.MAX_DAMAGE_LEVEL) 
+                {
+                    currrentRenderingMode = GameEngineRendererMode.GAME_OVER;
+                    continue;
+                }
+                else if (playerInfo.foodForDays() < -7)
+                {
+                    currrentRenderingMode = GameEngineRendererMode.GAME_OVER_FOOD;
+                    continue;
+                }
                 //Players input refresh state
                 if (Map.getInstance().forcePause)
                 {
                     //DialogResult r = MessageBox.Show("Czy chcesz wpłynąć do portu " + MapBoard.getInstance().getPortName(), "", MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button2);                                        
-                    if (window.nextMode != GameEngineRendererMode.PORT && window.nextMode != GameEngineRendererMode.NONE)
+                    if (window.nextMode != GameEngineRendererMode.NONE)
                     {
                         currrentRenderingMode = window.nextMode;
                     }
@@ -142,6 +155,12 @@ namespace Pirates.Rendering
                 }
 
                 Thread.Sleep(25);
+                partOfDay++;
+                if (partOfDay == 80)
+                {
+                    partOfDay = 0;
+                    playerInfo.newDay();
+                }
             }
         }
 
@@ -249,7 +268,20 @@ namespace Pirates.Rendering
                     invalidateMapSeaMode(g);
                     break;
                 case GameEngineRendererMode.DOCK:
-                    DockRenderingMap.getInstance(window).draw(g);
+                    DockRenderingMap.getInstance(window, playerInfo).draw(g);
+                    break;
+                case GameEngineRendererMode.GAME_OVER:
+                    g.FillRectangle(Brushes.Blue, 0, 0, 1024, 768);
+                    g.DrawString("GAME OVER", new Font(new FontFamily("Arial"), 40, FontStyle.Underline), Brushes.Yellow, 50, 100);
+                    g.DrawString("Twój statek zatonął", new Font(new FontFamily("Arial"), 20), Brushes.Yellow, 50, 374);
+                    break;
+                case GameEngineRendererMode.GAME_OVER_FOOD:
+                    g.FillRectangle(Brushes.Blue, 0, 0, 1024, 768);
+                    g.DrawImage(Properties.Resources.Food_bg, 512 - Properties.Resources.Food_bg.Width / 2, 384 - Properties.Resources.Food_bg.Height / 2);
+                    g.DrawString("GAME OVER", new Font(new FontFamily("Arial"), 40, FontStyle.Underline), Brushes.Yellow, 50, 100);
+                    g.DrawString("Z powodu braku żywności", new Font(new FontFamily("Arial"), 15), Brushes.Yellow, 50, 389 + Properties.Resources.Food_bg.Height / 2);
+                    g.DrawString("na Twoim pokładzie wybuchł bunt, ", new Font(new FontFamily("Arial"), 15), Brushes.Yellow, 50, 409 + Properties.Resources.Food_bg.Height / 2);
+                    g.DrawString("załoga przejęła statek, porzucając Ciebie ", new Font(new FontFamily("Arial"), 15), Brushes.Yellow, 50, 429 + Properties.Resources.Food_bg.Height / 2);
                     break;
             }
             
@@ -263,6 +295,18 @@ namespace Pirates.Rendering
             {
                 e.draw(g);
             }
+            drawShipAndCrewPanel(g);
+            
+        }
+
+        private void drawShipAndCrewPanel(Graphics g)
+        {
+            g.DrawRectangle(Pens.Bisque, 0, 600, 200, 128);
+            g.FillRectangle(Brushes.Bisque, 0, 600, 200, 128);
+            g.DrawString("Załoga: " + playerInfo.crewNumbers, new Font(new FontFamily("Arial"), 12), Brushes.Coral, 10, 605);
+            g.DrawString("Uszkodzenie: " + (playerInfo.playersShip.damages*100)/playerInfo.playersShip.MAX_DAMAGE_LEVEL, new Font(new FontFamily("Arial"), 12), Brushes.Coral, 10, 619);
+            g.DrawString("Bogactwo: " + playerInfo.money, new Font(new FontFamily("Arial"), 12), Brushes.Coral, 10, 633);
+            g.DrawString("Żywność: " + playerInfo.getFoodString(), new Font(new FontFamily("Arial"), 12), Brushes.Coral, 10, 647);
         }
     }
 }
