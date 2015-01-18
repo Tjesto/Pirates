@@ -13,6 +13,7 @@ namespace Pirates.GameObjects.Players
     class PlayersInfo
     {
         private int[] currentTile;
+        private int dailyMeals;
         public AbstractShip playersShip
         {
             set;
@@ -24,7 +25,7 @@ namespace Pirates.GameObjects.Players
         public PlayersInfo()
         {
             //restore state
-            crewNumbers = 5;
+            updateCrew(5);
             money = 10;
             food = 450;
             playersShip = new Slup();
@@ -85,7 +86,7 @@ namespace Pirates.GameObjects.Players
 
         public int foodForDays()
         {
-            return food / 34;
+            return food / dailyMeals;
         }
 
         public int foodForMonths()
@@ -111,7 +112,12 @@ namespace Pirates.GameObjects.Players
 
         internal void newDay()
         {
-            food -= 34;
+            food -= dailyMeals;
+        }
+
+        internal void updateCrew(int newCrew) {
+            crewNumbers += newCrew;
+            dailyMeals = crewNumbers * 3;
         }
     }
 }

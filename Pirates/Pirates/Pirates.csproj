@@ -60,8 +60,10 @@
     <Compile Include="GameObjects\Map\Ship.cs" />
     <Compile Include="GameObjects\Map\TerrainObject.cs" />
     <Compile Include="GameObjects\Map\TestMapFactory.cs" />
+    <Compile Include="GameObjects\Product.cs" />
     <Compile Include="GameObjects\Ships\AbstractShip.cs" />
     <Compile Include="GameObjects\Ships\Slup.cs" />
+    <Compile Include="GameObjects\WorldInfo.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogCat.cs">
       <SubType>Form</SubType>

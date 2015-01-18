@@ -159,6 +159,7 @@ namespace Pirates.Rendering
                 if (partOfDay == 80)
                 {
                     partOfDay = 0;
+                    WorldInfo.getInfo().updateDaily();
                     playerInfo.newDay();
                 }
             }
