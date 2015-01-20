@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Pirates.GameObjects.Ships
 {
     class AbstractShip : Ship
-    {
+    {        
         public int MAX_DAMAGE_LEVEL = 500;
         protected int level = 15;
         protected string type;

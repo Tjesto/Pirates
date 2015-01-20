@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\Chest.cs" />
     <Compile Include="GameObjects\Map\AbstractMapFactory.cs" />
     <Compile Include="GameObjects\Map\AbstractMapObject.cs" />
     <Compile Include="GameObjects\Map\CarribeanMapFactory.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="GameObjects\Product.cs" />
     <Compile Include="GameObjects\Ships\AbstractShip.cs" />
     <Compile Include="GameObjects\Ships\Slup.cs" />
+    <Compile Include="GameObjects\Ships\Storage.cs" />
     <Compile Include="GameObjects\WorldInfo.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogCat.cs">

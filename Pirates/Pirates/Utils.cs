@@ -14,6 +14,24 @@ namespace Pirates
         DEBUG_MENU, DEBUG_GAME, DEBUG_GAME_MENU, DEBUG, RELEASE
     }
 
+    sealed class Pair<First, Second>
+    {
+        public First first { set; get; }
+        public Second second { set; get; }
+
+        private Pair(First first, Second second) 
+        {
+            this.first = first;
+            this.second = second;
+        }
+
+        public static Pair<First, Second> createPairOf(First first, Second second)
+        {
+            return new Pair<First, Second>(first, second);
+        }
+        
+    }
+
     class Utils
     {
         public static bool DEBUG = true;

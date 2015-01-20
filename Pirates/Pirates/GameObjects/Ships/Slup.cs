@@ -11,7 +11,7 @@ namespace Pirates.GameObjects.Ships
         public int MAX_DAMAGE_LEVEL = 1000;
 
         public Slup()
-        {
+        {            
             texture = Properties.Resources.slup;
             cannonsCount = 1;
             type = "Slup";
