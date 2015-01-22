@@ -76,6 +76,7 @@
     <Compile Include="Rendering\AbstractRenderingMap.cs" />
     <Compile Include="Rendering\DockRenderingMap.cs" />
     <Compile Include="Rendering\ICleanupable.cs" />
+    <Compile Include="Rendering\MarketRenderingMap.cs" />
     <Compile Include="Rendering\MenuHandler.cs" />
     <Compile Include="Rendering\PortRenderingMap.cs" />
     <Compile Include="Rendering\ViewPortHelper.cs" />
@@ -158,6 +159,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GameData\Graphics\Others\Food_bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameData\Graphics\Others\button_buy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameData\Graphics\Others\button_sell.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -58,5 +58,20 @@ namespace Pirates.GameObjects
         }
 
 
+
+        internal int getPriceOf(Product product)
+        {
+            return 10;
+        }        
+
+        internal int getProductAmount(Product product)
+        {
+            return 10000;   
+        }
+
+        internal List<Product> getProducts()
+        {
+            return null;
+        }
     }
 }

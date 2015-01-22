@@ -14,7 +14,7 @@ namespace Pirates.GameObjects.Ships
         private List<Pair<Product, int>> content;
 
         public Storage(int maxCapacity)
-        {
+        {                      
             this.maxCapacityImpl = maxCapacity;
             content = new List<Pair<Product,int>>();
         }

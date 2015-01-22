@@ -81,6 +81,20 @@ namespace Pirates.Rendering
         }
     }
 
+    class TextView : Component
+    {
+        public String label { set; get; }
+        public TextView(float x, float y, float width, float height, String label) : base(x, y, width, height) 
+        {
+            this.label = label;
+        }
+
+        public override void draw(Graphics g)
+        {            
+            g.DrawString(label, new Font("Arial", Utils.dpToPx(16)), Brushes.Chocolate, location.left + Utils.dpToPx(10), location.top + (location.bottom - location.top + Utils.dpToPx(16)) / 2);
+        }
+    }
+
     class MapButton : Component
     {
         public String label { set; get; }
@@ -96,6 +110,21 @@ namespace Pirates.Rendering
         {
             g.DrawRectangle(new Pen(background), location.left, location.top, width, height);
             g.DrawString(label, new Font("Arial", Utils.dpToPx(16)), Brushes.Chocolate, location.left + Utils.dpToPx(10), location.top + (location.bottom - location.top + Utils.dpToPx(16)) / 2);
+        }
+    }
+
+    class ImageButton : MapButton
+    {
+        private Image image;
+
+        public ImageButton(float x, float y, Image image) : base(x, y, image.Width, image.Height, "") 
+        {
+            this.image = image;
+        }
+
+        public override void draw(Graphics g)
+        {
+            g.DrawImage(image, location.left, location.top);
         }
     }
 

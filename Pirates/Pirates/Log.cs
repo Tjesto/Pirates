@@ -11,10 +11,11 @@ namespace Pirates
     enum LogMode { DEBUG, WARNING, ERROR, WTF, INFO, VERBOSE }
     class Log
     {
+        
         private static bool isInitialized = false;
         private static LogCat logCat;
         private static void initialize()
-        {            
+        {    
             logCat = new LogCat();
             logCat.Show();
             isInitialized = true;

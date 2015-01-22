@@ -22,6 +22,7 @@ namespace Pirates.GameObjects.Ships
         protected Location location;
         protected Location rotatedLocation;
         protected Bitmap texture;
+        protected Storage shipStorage;
         private float _azimuth;
         public float azimuth { set { _azimuth = value; refreshRotatedLocation(); } get { return _azimuth; } }
 
@@ -97,8 +98,23 @@ namespace Pirates.GameObjects.Ships
             return rotatedLocation;
         }
 
+        public int addProducts(Product product, int count)
+        {
+            return shipStorage.addProducts(product, count);
+        }
+
+        public int removeProducts(Product product, int count)
+        {
+            return shipStorage.removeProducts(product, count);
+        }
+
         public double velocity { get; set; }
 
         public int damages { get; set; }
+
+        internal string getAmount(Product p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

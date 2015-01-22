@@ -63,6 +63,26 @@ namespace Pirates.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap button_buy {
+            get {
+                object obj = ResourceManager.GetObject("button_buy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap button_sell {
+            get {
+                object obj = ResourceManager.GetObject("button_sell", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Dock_bg {
             get {
                 object obj = ResourceManager.GetObject("Dock_bg", resourceCulture);
