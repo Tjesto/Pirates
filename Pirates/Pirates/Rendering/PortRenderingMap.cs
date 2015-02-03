@@ -36,17 +36,37 @@ namespace Pirates.Rendering
         }
     }
 
+    partial class OnMarketClicked : Component.OnClickListener
+    {
+        Pirates.Windows.MainWindow window;
+
+        public OnMarketClicked(Pirates.Windows.MainWindow window)
+        {
+            this.window = window;
+        }
+        public bool onClick(System.Windows.Forms.MouseEventArgs e)
+        {
+            window.nextMode = GameEngineRenderer.GameEngineRendererMode.MARKET;
+            return true;
+        }
+    }
+
     class PortRenderingMap : AbstractRenderingMap
     {
         public PortRenderingMap(Pirates.Windows.MainWindow window) : base(window) 
         {
+            TextView port = new TextView(100, 200, 125, 50, "Port: " + Pirates.GameObjects.Map.Map.getInstance().collisionPortId);
             window.DialogResult = System.Windows.Forms.DialogResult.None;
+            addComponent(port);
             MapButton back = new MapButton(100, 600, 125, 50, "Powrót na morze");
             back.setOnClickListener(new OnBackClicked(window));
             addComponent(back);
             MapButton dock = new MapButton(100, 450, 125, 50, "Odwiedź stocznię");
             dock.setOnClickListener(new OnDockClicked(window));
             addComponent(dock);
+            //MapButton market = new MapButton(100, 300, 125, 50, "Handluj");
+            //market.setOnClickListener(new OnMarketClicked(window));
+            //addComponent(market);
         }
 
         public override void draw(System.Drawing.Graphics g)

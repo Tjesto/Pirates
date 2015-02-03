@@ -21,6 +21,7 @@ namespace Pirates.Rendering
             PORT,
             FIGHT,
             DOCK,
+            MARKET,
             NONE,
             GAME_OVER,
             GAME_OVER_FOOD
@@ -116,7 +117,11 @@ namespace Pirates.Rendering
                         Map.getInstance().forcePause = false;
                         Map.getInstance().saveCurrentAskAngle(playerInfo.playersAngle);
                         playerInfo.setAngleToGoOut();
-                        Map.getInstance().isInPort = false;                        
+                        Map.getInstance().isInPort = false;
+                        if (Map.getInstance().isCorrectPort)
+                        {
+                            playerInfo.food += 100;
+                        }
                         currrentRenderingMode = GameEngineRendererMode.SEA;
                         window.nextMode = GameEngineRendererMode.NONE;
                     }
@@ -271,6 +276,9 @@ namespace Pirates.Rendering
                 case GameEngineRendererMode.DOCK:
                     DockRenderingMap.getInstance(window, playerInfo).draw(g);
                     break;
+                case GameEngineRendererMode.MARKET:
+                    MarketRenderingMap.getInstance(window, playerInfo).draw(g);
+                    break;
                 case GameEngineRendererMode.GAME_OVER:
                     g.FillRectangle(Brushes.Blue, 0, 0, 1024, 768);
                     g.DrawString("GAME OVER", new Font(new FontFamily("Arial"), 40, FontStyle.Underline), Brushes.Yellow, 50, 100);
@@ -294,7 +302,7 @@ namespace Pirates.Rendering
             SortedList<int, MapElement> elementsInViewport = Map.getInstance().getMapElements();
             foreach (MapElement e in elementsInViewport.Values)
             {
-                e.draw(g);
+                e.draw(g);                
             }
             drawShipAndCrewPanel(g);
             
@@ -308,6 +316,7 @@ namespace Pirates.Rendering
             g.DrawString("Uszkodzenie: " + (playerInfo.playersShip.damages*100)/playerInfo.playersShip.MAX_DAMAGE_LEVEL, new Font(new FontFamily("Arial"), 12), Brushes.Coral, 10, 619);
             g.DrawString("Bogactwo: " + playerInfo.money, new Font(new FontFamily("Arial"), 12), Brushes.Coral, 10, 633);
             g.DrawString("Żywność: " + playerInfo.getFoodString(), new Font(new FontFamily("Arial"), 12), Brushes.Coral, 10, 647);
+            g.DrawString("Płyń do: " + WorldInfo.getInfo().randomizedPort, new Font(new FontFamily("Arial"), 12), Brushes.Coral, 10, 661);
         }
     }
 }

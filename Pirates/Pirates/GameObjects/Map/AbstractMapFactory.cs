@@ -56,7 +56,17 @@ namespace Pirates.GameObjects.Map
                 {
                     string[] f = line[j].Split(':');
                     if (f.Length < 2)
-                        MessageBox.Show(line[j] + ";; " + f.Length + "\n" + j + "x" +i);
+                    {
+                        MessageBox.Show(line[j] + ";; " + f.Length + "\n" + j + "x" + i);
+                        if ("\r".Equals(line[j]))
+                        {
+                            break;
+                        } 
+                        else 
+                        {
+                            continue;
+                        }
+                    }
                     string fieldValue = f[1];
                     FieldType type = (FieldType) int.Parse(fieldValue);
                     MapBoard.getInstance().add(i, j, type);
@@ -70,7 +80,9 @@ namespace Pirates.GameObjects.Map
                         }
                         else if (type == FieldType.CITY)
                         {
-                            elements.Add(new CityObject(20, new Location(left, top, left + 10, top + 10), ""));
+                            CityObject c = new CityObject(20, new Location(left, top, left + 10, top + 10), "", int.Parse(f[0]));
+                            elements.Add(c);
+                            MapBoard.getInstance().addCity(i, j, c);
                         }
                     }
                 }

@@ -14,15 +14,29 @@ namespace Pirates.GameObjects
 
         }
 
-        private int daysSinceGameStarted;
+        private long daysSinceGameStarted;
 
         private volatile Dictionary<WorldInfo.Keys, Object> events;
 
         private static volatile WorldInfo instance;
 
+        private List<Product> products;
+
+        private Random r;
+
         private WorldInfo()
         {
             daysSinceGameStarted = 1;
+            r = new Random();
+            products = new List<Product>();
+            products.Add(new Product("Rum", 5, 43));
+            products.Add(new Product("Żywność", 1, 8));
+            products.Add(new Product("Amunicja", 20, 120));
+            products.Add(new Product("Tkaniny", 4, 53));
+            products.Add(new Product("Przyprawy", 3, 38));
+            products.Add(new Product("Papier", 5, 14));
+            products.Add(new Product("Deski", 6, 114));
+            updatePrices();
         }
 
         public static WorldInfo getInfo()
@@ -34,9 +48,17 @@ namespace Pirates.GameObjects
             return instance;
         }
 
+        private void updatePrices()
+        {
+            foreach (Product p in products)
+            {
+                p.setPrice(r.Next());
+            }
+        }
+
         public void updateDaily()
         {
-            //do daily update           
+            updatePrices();        
             if ((++daysSinceGameStarted) % 7 == 0)
             {
                 updateWeekly();
@@ -70,8 +92,26 @@ namespace Pirates.GameObjects
         }
 
         internal List<Product> getProducts()
+        {                        
+            return products;
+        }
+
+        internal Product getProductWithName(string p)
         {
+            foreach (Product prod in products) {
+                if (p.Equals(prod.name))
+                {
+                    return prod;
+                }
+            }
             return null;
         }
+
+        public void randomizePort()
+        {
+            randomizedPort = r.Next(101, 107);
+        }
+
+        public int randomizedPort { get; set; }
     }
 }

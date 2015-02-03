@@ -84,11 +84,12 @@ namespace Pirates.Rendering
                 addComponent(sell);
                 addComponent(tv);
 
-                tv = new TextView(40, y, 60, 25, "Kup " + p.name + " za " + p.price);
+                tv = new TextView(240, y, 60, 25, "Kup " + p.name + " za " + p.price);
                 ImageButton buy = new ImageButton(200, y, Properties.Resources.button_buy);
                 buy.setOnClickListener(new OnBuyClicked(window, p, player));
                 addComponent(buy);
                 addComponent(tv);
+                y += 100;
             }
         }
 

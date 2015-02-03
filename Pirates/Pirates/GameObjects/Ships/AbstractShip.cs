@@ -26,6 +26,11 @@ namespace Pirates.GameObjects.Ships
         private float _azimuth;
         public float azimuth { set { _azimuth = value; refreshRotatedLocation(); } get { return _azimuth; } }
 
+        public AbstractShip()
+        {
+            shipStorage = new Storage(5000);
+        }
+
         private void refreshRotatedLocation()
         {
             double angle = Utils.DegreeToRadian(_azimuth);
@@ -112,9 +117,9 @@ namespace Pirates.GameObjects.Ships
 
         public int damages { get; set; }
 
-        internal string getAmount(Product p)
+        internal int getAmount(Product p)
         {
-            throw new NotImplementedException();
+            return shipStorage.getAmount(p);
         }
     }
 }

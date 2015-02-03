@@ -25,6 +25,8 @@ namespace Pirates.GameObjects.Map
 
         public bool portDecided { set; get; }
 
+        public int collisionPortId { set; get; }
+
         protected CollisionType collisionType;
 
         protected float currentAskAngle { set; get; }
@@ -155,29 +157,31 @@ namespace Pirates.GameObjects.Map
             {
                 return true;
             }
-
+            int collisionPortIdVal;
             //if (MapBoard.getInstance().isBlocked(tile[0], tile[1]))
             {
-                if ((MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1]) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] - 1) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] + 1)) && Utils.checkAngle(player.playersAngle, 300, 60))
+                if ((MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1], out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] - 1, out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] + 1, out collisionPortIdVal)) && Utils.checkAngle(player.playersAngle, 300, 60))
                 {
-                    collisionType = CollisionType.TOP;
+                    collisionType = CollisionType.TOP;                    
                 }
-                else if ((MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1]) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] - 1) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] + 1)) && Utils.checkAngle(player.playersAngle, 120, 240))
+                else if ((MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1], out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] - 1, out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] + 1, out collisionPortIdVal)) && Utils.checkAngle(player.playersAngle, 120, 240))
                 {
                     collisionType = CollisionType.BOTTOM;
                 }
-                else if ((MapBoard.getInstance().isBlocked(tile[0], tile[1] - 1) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] - 1) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] - 1)) && Utils.checkAngle(player.playersAngle, 210, 330))
+                else if ((MapBoard.getInstance().isBlocked(tile[0], tile[1] - 1, out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] - 1, out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] - 1, out collisionPortIdVal)) && Utils.checkAngle(player.playersAngle, 210, 330))
                 {
                     collisionType = CollisionType.LEFT;
                 }
-                else if ((MapBoard.getInstance().isBlocked(tile[0], tile[1] + 1) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] + 1) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] + 1)) && Utils.checkAngle(player.playersAngle, 30, 150))
+                else if ((MapBoard.getInstance().isBlocked(tile[0], tile[1] + 1, out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] + 1, out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] + 1, tile[1] + 1, out collisionPortIdVal)) && Utils.checkAngle(player.playersAngle, 30, 150))
                 {
                     collisionType = CollisionType.RIGHT;
-                }                
+                }    
+                collisionPortId = collisionPortIdVal;
             }
             if (MapBoard.getInstance().canDock)
             {
                 forcePause = true;
+                isCorrectPort = collisionPortId == WorldInfo.getInfo().randomizedPort;
             }
             else if (collisionType != CollisionType.NONE)
             {
@@ -252,5 +256,7 @@ namespace Pirates.GameObjects.Map
         {
             currentAskAngle = angle;
         }
+
+        public bool isCorrectPort { get; set; }
     }
 }

@@ -10,12 +10,12 @@ namespace Pirates.GameObjects
     {
         private string mName;
         public string name { get { return mName; } }
-        private double mPrice;
-        public double price { set { setPrice(value); } get { return mPrice; } }
-        private double minPrice;
-        private double maxPrice;
+        private int mPrice;
+        public int price { set { setPrice(value); } get { return mPrice; } }
+        private int minPrice;
+        private int maxPrice;
 
-        public Product(string name, double minPrice, double maxPrice)
+        public Product(string name, int minPrice, int maxPrice)
         {
             if (name == null)
             {
@@ -35,7 +35,7 @@ namespace Pirates.GameObjects
             this.mName = name;
         }
 
-        private void setPrice(double newPrice)
+        public void setPrice(int newPrice)
         {
             mPrice = Math.Min(Math.Max(newPrice, minPrice), maxPrice);
         }

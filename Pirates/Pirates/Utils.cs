@@ -30,6 +30,24 @@ namespace Pirates
             return new Pair<First, Second>(first, second);
         }
         
+        public override bool Equals (object obj)
+        {
+            //       
+            // See the full list of guidelines at
+            //   http://go.microsoft.com/fwlink/?LinkID=85237  
+            // and also the guidance for operator== at
+            //   http://go.microsoft.com/fwlink/?LinkId=85238
+            //
+
+            if (obj == null || GetType() != obj.GetType()) 
+            {
+                return false;
+            }
+            Pair<First, Second> pair = (Pair<First, Second>) obj;
+
+            return (this.first.Equals(pair.first) && this.second.Equals(pair.second)); 
+        }   
+        
     }
 
     class Utils

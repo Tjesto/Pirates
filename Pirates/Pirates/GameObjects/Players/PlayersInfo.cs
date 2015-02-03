@@ -30,6 +30,7 @@ namespace Pirates.GameObjects.Players
             food = 450;
             playersShip = new Slup();
             playersShip.damages = 0;
+            playersShip.addProducts(WorldInfo.getInfo().getProductWithName("Żywność"), food);
             ((AbstractShip) playersShip).changeLocationToCenter();
         }
 

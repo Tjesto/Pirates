@@ -10,6 +10,8 @@ namespace Pirates.GameObjects.Map
     class CityObject : AbstractMapObject, MapElement
     {
         private string nameImpl;
+        private int mId;
+        public int id { get { return mId; } }
         public string name { get { return nameImpl; } }
 
         public CityObject(int level)
@@ -24,11 +26,16 @@ namespace Pirates.GameObjects.Map
             this.nameImpl = name;
         }
 
+        public CityObject(int level, Location location, string name, int id) : this(level, location, name)
+        {
+            this.mId = id;
+        }
+
         public void draw(Graphics g)
         {
             Pen pen = new Pen(Color.DimGray, 1);
             g.DrawRectangle(pen, location.left, location.top, 10, 10);
-            g.FillRectangle(Brushes.DarkGray, location.left, location.top, 10, 10);
+            g.FillRectangle(Brushes.Red, location.left, location.top, 10, 10);
         }
 
         public void refreshVisibilityTowards(float[] moveLocation)

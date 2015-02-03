@@ -20,6 +20,8 @@ namespace Pirates.GameObjects.Map
 
         public bool canDock { get; set; }
 
+        private Dictionary<Pair<int, int>, CityObject> cities;
+
         public static void createMapBoard(Location startLocation, Bitmap map) 
         {
             if (board == null)
@@ -42,6 +44,7 @@ namespace Pirates.GameObjects.Map
             this.map = map;
             location = startLocation;
             this.mapBoard = new FieldType[160,120];
+            cities = new Dictionary<Pair<int, int>, CityObject>();
         }
 
         public void draw(Graphics g)
@@ -69,18 +72,33 @@ namespace Pirates.GameObjects.Map
 
         public void add(int x, int y, FieldType value)
         {
-            mapBoard[x, y] = value;
+            mapBoard[x, y] = value;            
         }
 
-
-        internal bool isBlocked(int p1, int p2)
+        public void addCity(int x, int y, CityObject city)
         {
-            return mapBoard[p1, p2] == FieldType.LAND || isPort(p1, p2);
+            Pair<int, int> key = Pair<int, int>.createPairOf(x, y);
+            cities.Add(key, city);            
         }
 
-        internal bool isPort(int p1, int p2)
+
+        internal bool isBlocked(int p1, int p2, out int collisionPortId)
+        {
+            bool isPortVar = isPort(p1, p2, out collisionPortId);
+            return mapBoard[p1, p2] == FieldType.LAND || isPortVar;
+        }
+
+        internal bool isPort(int p1, int p2, out int collisionPortId)
         {
             canDock = mapBoard[p1, p2] == FieldType.CITY;
+            int id = -1;
+            if (canDock)
+            {
+                CityObject c;
+                cities.TryGetValue(Pair<int, int>.createPairOf(p1, p2), out c);
+                id = c.id;
+            }
+            collisionPortId = id;
             return canDock;
         }
 

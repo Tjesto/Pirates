@@ -68,5 +68,21 @@ namespace Pirates.GameObjects.Ships
             return Math.Max(count - productsToAdd, 0);
         }
 
+
+        internal int getAmount(Product product)
+        {
+            Pair<Product, int> p = null;
+            int products = -1;
+            foreach (Pair<Product, int> pair in content)
+            {
+                if (pair.first.name.Equals(product.name))
+                {
+                    p = pair;
+                    products = pair.second;
+                    break;
+                }
+            }
+            return Math.Max(products, 0);
+        }
     }
 }
