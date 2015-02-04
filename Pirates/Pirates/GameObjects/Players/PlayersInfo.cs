@@ -12,6 +12,8 @@ namespace Pirates.GameObjects.Players
 
     class PlayersInfo
     {
+
+        public static PlayersInfo info;
         private int[] currentTile;
         private int dailyMeals;
         public AbstractShip playersShip
@@ -32,6 +34,7 @@ namespace Pirates.GameObjects.Players
             playersShip.damages = 0;
             playersShip.addProducts(WorldInfo.getInfo().getProductWithName("Żywność"), food);
             ((AbstractShip) playersShip).changeLocationToCenter();
+            PlayersInfo.info = PlayersInfo.info ?? this;
         }
 
         public void updateAngle(PlayerInfoAngle angle)

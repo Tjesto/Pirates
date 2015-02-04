@@ -65,7 +65,8 @@ namespace Pirates.Rendering
             {
                 background = highlighted;
                 new Thread(new ThreadStart(changeColor)).Start();
-                return listener.onClick(e);
+                
+                return listener != null ? listener.onClick(e) : false;
             }
             
             return false;

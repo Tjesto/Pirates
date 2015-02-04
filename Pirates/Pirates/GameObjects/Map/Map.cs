@@ -160,7 +160,7 @@ namespace Pirates.GameObjects.Map
             int collisionPortIdVal;
             //if (MapBoard.getInstance().isBlocked(tile[0], tile[1]))
             {
-                if ((MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1], out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] - 1, out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] + 1, out collisionPortIdVal)) && Utils.checkAngle(player.playersAngle, 300, 60))
+                if ((MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1], out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] - 1, out collisionPortIdVal) || MapBoard.getInstance().isBlocked(tile[0] - 1, tile[1] + 1, out collisionPortIdVal)) && (Utils.checkAngle(player.playersAngle, 00, 60) ||  Utils.checkAngle(player.playersAngle, 300, 359)))
                 {
                     collisionType = CollisionType.TOP;                    
                 }

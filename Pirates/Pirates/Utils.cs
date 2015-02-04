@@ -91,5 +91,6 @@ namespace Pirates
         {
             return p * Pirates.Rendering.ViewPortHelper.getInstance().right / 1024;
         }
+        
     }
 }

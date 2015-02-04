@@ -22,7 +22,7 @@ namespace Pirates.GameObjects
 
         private List<Product> products;
 
-        private Random r;
+        public Random r;
 
         private WorldInfo()
         {
@@ -110,7 +110,7 @@ namespace Pirates.GameObjects
         public void randomizePort()
         {
             randomizedPort = r.Next(101, 107);
-        }
+        }        
 
         public int randomizedPort { get; set; }
     }

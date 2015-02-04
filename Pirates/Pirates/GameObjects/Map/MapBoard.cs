@@ -95,8 +95,7 @@ namespace Pirates.GameObjects.Map
             if (canDock)
             {
                 CityObject c;
-                cities.TryGetValue(Pair<int, int>.createPairOf(p1, p2), out c);
-                id = c.id;
+                cities.TryGetValue(Pair<int, int>.createPairOf(p1, p2), out c);                
             }
             collisionPortId = id;
             return canDock;

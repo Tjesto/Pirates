@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Chest.cs" />
+    <Compile Include="GameObjects\GeographyTreasureQuest.cs" />
+    <Compile Include="GameObjects\HistoricTreasureQuest.cs" />
+    <Compile Include="GameObjects\LogicalTreasureQuest.cs" />
     <Compile Include="GameObjects\Map\AbstractMapFactory.cs" />
     <Compile Include="GameObjects\Map\AbstractMapObject.cs" />
     <Compile Include="GameObjects\Map\CarribeanMapFactory.cs" />
@@ -57,14 +60,23 @@
     <Compile Include="GameObjects\Map\MapModel.cs" />
     <Compile Include="GameObjects\Map\NatureElement.cs" />
     <Compile Include="GameObjects\Map\MapElement.cs" />
+    <Compile Include="GameObjects\OrbisonTreasureQuest.cs" />
     <Compile Include="GameObjects\Players\PlayersInfo.cs" />
     <Compile Include="GameObjects\Map\Ship.cs" />
     <Compile Include="GameObjects\Map\TerrainObject.cs" />
     <Compile Include="GameObjects\Map\TestMapFactory.cs" />
     <Compile Include="GameObjects\Product.cs" />
+    <Compile Include="GameObjects\QuestionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameObjects\QuestionDialog.Designer.cs">
+      <DependentUpon>QuestionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameObjects\Ships\AbstractShip.cs" />
     <Compile Include="GameObjects\Ships\Slup.cs" />
     <Compile Include="GameObjects\Ships\Storage.cs" />
+    <Compile Include="GameObjects\ShipTreasureQuest.cs" />
+    <Compile Include="GameObjects\TreasureQuest.cs" />
     <Compile Include="GameObjects\WorldInfo.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="LogCat.cs">
@@ -102,6 +114,9 @@
     <Compile Include="UnitTests\TestRunner.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Windows\SettingsScreen.cs" />
+    <EmbeddedResource Include="GameObjects\QuestionDialog.resx">
+      <DependentUpon>QuestionDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LogCat.resx">
       <DependentUpon>LogCat.cs</DependentUpon>
     </EmbeddedResource>

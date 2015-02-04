@@ -118,10 +118,7 @@ namespace Pirates.Rendering
                         Map.getInstance().saveCurrentAskAngle(playerInfo.playersAngle);
                         playerInfo.setAngleToGoOut();
                         Map.getInstance().isInPort = false;
-                        if (Map.getInstance().isCorrectPort)
-                        {
-                            playerInfo.food += 100;
-                        }
+                        TreasureQuest.getTreasureQuest();
                         currrentRenderingMode = GameEngineRendererMode.SEA;
                         window.nextMode = GameEngineRendererMode.NONE;
                     }
