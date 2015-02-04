@@ -34,8 +34,8 @@ namespace Pirates.GameObjects.Map
         public void draw(Graphics g)
         {
             Pen pen = new Pen(Color.DimGray, 1);
-            g.DrawRectangle(pen, location.left, location.top, 10, 10);
-            g.FillRectangle(Brushes.Red, location.left, location.top, 10, 10);
+            //g.DrawRectangle(pen, location.left, location.top, 10, 10);
+            //g.FillRectangle(Brushes.Red, location.left, location.top, 10, 10);
         }
 
         public void refreshVisibilityTowards(float[] moveLocation)

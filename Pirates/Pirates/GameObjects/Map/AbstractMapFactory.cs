@@ -57,7 +57,7 @@ namespace Pirates.GameObjects.Map
                     string[] f = line[j].Split(':');
                     if (f.Length < 2)
                     {
-                        MessageBox.Show(line[j] + ";; " + f.Length + "\n" + j + "x" + i);
+                        //MessageBox.Show(line[j] + ";; " + f.Length + "\n" + j + "x" + i);
                         if ("\r".Equals(line[j]))
                         {
                             break;
